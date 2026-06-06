@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гайд: Вирусные темы и сериальный контент</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#FFFFFF;--bg-soft:#F5F6F7;--bg-muted:#EDEEF0;
+  --ink:#1A1A1A;--ink-2:#4A4D52;--ink-3:#8A8E94;--line:#E4E6E9;
+  --accent:#C4F542;--accent-strong:#B8E83D;--accent-ink:#0F1A00;
+  --font-display:'Unbounded',ui-sans-serif,system-ui,sans-serif;
+  --font-body:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --r-sm:10px;--r-md:16px;--r-lg:24px;--r-pill:999px;
+  --shadow:0 2px 12px rgba(16,18,20,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-body);color:var(--ink);background:var(--bg);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+
+/* ───── ОБЛОЖКА — светлая ───── */
+.cover{background:var(--bg-soft);border-bottom:1px solid var(--line);}
+.cover-inner{max-width:880px;margin:0 auto;padding:60px 32px 48px;}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:20px;display:block;}
+.cover-title{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,4vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;}
+.cover-title em{font-style:normal;background:var(--accent);color:var(--accent-ink);padding:2px 10px 4px;border-radius:8px;}
+.cover-lead{font-size:15px;line-height:1.7;color:var(--ink-2);max-width:560px;}
+
+/* навигация — крупные блоки как в первой версии */
+.cover-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);margin-top:40px;}
+.cnav{padding:28px 32px;text-decoration:none;display:flex;flex-direction:column;gap:0;border-right:1px solid var(--line);transition:background .12s;position:relative;}
+.cnav:last-child{border-right:none;}
+.cnav:hover{background:var(--bg-muted);}
+.cnav-a,.cnav-c{background:var(--bg-soft);}
+.cnav-b{background:var(--bg);}
+.cnav-num{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px;display:block;}
+.cnav-stamp{display:inline-flex;align-items:center;background:var(--accent);color:var(--accent-ink);padding:4px 10px;border-radius:var(--r-sm);font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;width:fit-content;}
+.cnav-name{font-family:var(--font-display);font-weight:600;font-size:15px;line-height:1.3;color:var(--ink);margin-bottom:8px;}
+.cnav-desc{font-size:13px;line-height:1.55;color:var(--ink-3);flex:1;}
+.cnav-arrow{font-family:var(--font-mono);font-size:16px;color:var(--ink-3);margin-top:16px;transition:transform .12s;}
+.cnav:hover .cnav-arrow{transform:translateX(4px);}
+
+/* ───── LAYOUT ───── */
+.page-wrap{max-width:880px;margin:0 auto;padding:0 32px 100px;}
+
+/* секции: soft с отрицательными марджинами чтобы фон тянулся до краёв */
+.sec-wrap{max-width:880px;margin:0 auto;}
+.section-soft{background:var(--bg-soft);margin:0 -32px;padding:60px 32px 60px;border-top:1px solid var(--line);}
+.section-white{padding:60px 0 0;}
+
+.sec-stamp{display:inline-flex;align-items:center;background:var(--accent);color:var(--accent-ink);padding:5px 12px;border-radius:var(--r-sm);font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;}
+.sec-title{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,3vw,28px);letter-spacing:-.015em;line-height:1.15;color:var(--ink);margin-bottom:6px;}
+.sec-sub{font-size:14px;line-height:1.65;color:var(--ink-3);margin-bottom:28px;max-width:680px;}
+.sec-hr{height:1px;background:var(--line);border:none;margin:4px 0 28px;}
+
+/* key-point */
+.kp{display:flex;gap:14px;background:var(--bg-muted);border-radius:var(--r-md);padding:16px 20px;border-left:3px solid var(--accent);margin-top:16px;}
+.kp-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;padding-top:2px;flex-shrink:0;}
+.kp p{margin:0;font-weight:600;font-size:14px;line-height:1.55;color:var(--ink);}
+
+/* ───── МАТРИЦА ───── */
+.matrix-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.matrix-grid{display:grid;grid-template-columns:100px repeat(5,1fr);gap:3px;min-width:580px;}
+.m-col-h{background:var(--ink);color:#8A8E94;border-radius:6px;padding:10px 8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;text-align:center;font-weight:600;line-height:1.4;}
+.m-row-h{background:var(--bg-muted);border-radius:6px;padding:10px 12px;font-size:12px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;}
+.m-cell{background:var(--bg);border-radius:6px;padding:10px 8px;font-size:12px;color:var(--ink-2);line-height:1.4;cursor:pointer;transition:background .12s,transform .08s;min-height:76px;display:flex;align-items:center;text-align:center;justify-content:center;font-weight:500;}
+.m-cell:hover{background:var(--bg-muted);transform:translateY(-1px);}
+.m-cell.active{background:var(--accent);color:var(--accent-ink);font-weight:700;}
+.m-result{margin-top:12px;background:var(--bg);border-radius:var(--r-md);padding:20px 24px;display:none;border:1px solid var(--line);border-left:4px solid var(--accent);animation:fadeIn .18s ease;}
+.m-result.visible{display:block;}
+.m-result-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;}
+.m-result-idea{font-size:17px;font-weight:700;line-height:1.5;color:var(--ink);margin-bottom:10px;}
+.m-result-why{font-size:13px;color:var(--ink-2);line-height:1.6;}
+
+/* ───── БАНК ЗАГОЛОВКОВ ───── */
+.hl-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;}
+.hl-tab{padding:8px 16px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--bg);font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;transition:all .12s;}
+.hl-tab:hover{background:var(--bg-muted);color:var(--ink);}
+.hl-tab.active{background:var(--accent);border-color:var(--accent-strong);color:var(--accent-ink);}
+.hl-panel{display:none;}
+.hl-panel.visible{display:block;}
+.hl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.hl-cat{background:var(--bg-soft);border-radius:var(--r-md);padding:18px 18px 14px;}
+.hl-cat-title{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent);display:inline-block;padding:3px 10px;border-radius:4px;margin-bottom:14px;}
+.hl-list{list-style:none;display:grid;gap:7px;}
+.hl-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:9px 11px;background:var(--bg);border-radius:var(--r-sm);transition:background .1s;}
+.hl-item:hover{background:#F6FFE8;}
+.hl-itxt{font-size:13px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:3px;}
+.hl-iwhy{font-size:11px;color:var(--ink-3);font-family:var(--font-mono);}
+.btn-copy{flex-shrink:0;display:inline-flex;align-items:center;padding:5px 10px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--bg);font-size:11px;font-weight:600;color:var(--ink-3);cursor:pointer;transition:all .1s;white-space:nowrap;align-self:flex-start;}
+.btn-copy:hover,.btn-copy.copied{background:var(--accent);border-color:var(--accent-strong);color:var(--accent-ink);}
+
+/* ───── ФОРМАТЫ СЕРИЙ ───── */
+.serial-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.ser-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:20px;cursor:pointer;transition:border-color .12s;position:relative;overflow:hidden;}
+.ser-card:hover{border-color:var(--ink-3);}
+.ser-card.open{border-color:var(--accent-strong);}
+.ser-card.open::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);}
+.ser-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.ser-name{font-weight:700;font-size:15px;color:var(--ink);line-height:1.3;margin-bottom:4px;}
+.ser-tag{font-size:12px;color:var(--ink-3);}
+.ser-toggle{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:var(--bg-soft);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink-3);transition:transform .2s,background .12s;}
+.ser-card.open .ser-toggle{transform:rotate(45deg);background:var(--accent);border-color:var(--accent-strong);color:var(--accent-ink);}
+.ser-body{max-height:0;overflow:hidden;transition:max-height .28s ease,opacity .2s ease;opacity:0;}
+.ser-card.open .ser-body{max-height:700px;opacity:1;}
+.ser-div{height:1px;background:var(--line);margin:14px 0;}
+.ser-desc{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:14px;}
+.ser-ex-lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+.ser-exs{display:grid;gap:5px;margin-bottom:12px;}
+.ser-ex{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;background:var(--bg-soft);border-radius:6px;font-size:12px;color:var(--ink);font-weight:500;line-height:1.45;}
+.ser-ex::before{content:'—';font-family:var(--font-mono);color:var(--ink-3);font-weight:700;flex-shrink:0;}
+.ser-hook{padding:11px 14px;background:var(--bg-soft);border-radius:6px;border-left:3px solid var(--accent);font-size:12px;color:var(--ink-2);line-height:1.6;}
+.ser-hook strong{color:var(--ink);}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:none;}}
+
+@media(max-width:640px){
+  .cover-inner{padding:40px 20px 36px;}
+  .cover-nav{grid-template-columns:1fr;}
+  .cnav{border-right:none;border-bottom:1px solid var(--line);padding:22px 20px;}
+  .cnav:last-child{border-bottom:none;}
+  .page-wrap{padding:0 20px 80px;}
+  .section-soft{margin:0 -20px;padding:48px 20px 48px;}
+  .matrix-grid{min-width:480px;}
+  .hl-grid{grid-template-columns:1fr;}
+  .serial-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ОБЛОЖКА -->
+<div class="cover">
+  <div class="cover-inner">
+    <span class="eyebrow">Fitstars · Блогер с нуля · Модуль 5 / Урок 1 — дополнительные материалы</span>
+    <h1 class="cover-title">Гайд: <em>вирусные темы</em><br>и сериальный контент</h1>
+    <p class="cover-lead">Три инструмента — не теория, а готовые идеи и формулы. Берите, адаптируйте под свою нишу, пробуйте.</p>
+  </div>
+  <div class="cover-nav">
+    <a class="cnav cnav-a" href="#matrix">
+      <span class="cnav-stamp">Раздел 01</span>
+      <div class="cnav-name">Матрица тема × эмоция</div>
+      <div class="cnav-desc">Нажмите на ячейку — получите идею поста и объяснение, почему она разлетается</div>
+      <div class="cnav-arrow">→</div>
+    </a>
+    <a class="cnav cnav-b" href="#headlines">
+      <span class="cnav-num">Раздел 02</span>
+      <div class="cnav-name">Заголовки по формулам</div>
+      <div class="cnav-desc">30+ шаблонов по категориям. Скопируйте, вставьте свою нишу — готово</div>
+      <div class="cnav-arrow">→</div>
+    </a>
+    <a class="cnav cnav-c" href="#serial">
+      <span class="cnav-stamp">Раздел 03</span>
+      <div class="cnav-name">8 форматов серий</div>
+      <div class="cnav-desc">Какие серии удерживают подписчиков и как работает крюк между частями</div>
+      <div class="cnav-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+<!-- ═══ РАЗДЕЛ 01: МАТРИЦА (зелёный) ═══ -->
+<div class="section-soft" id="matrix">
+  <span class="sec-stamp">Раздел 01</span>
+  <h2 class="sec-title">Матрица: тема × эмоция</h2>
+  <p class="sec-sub">Вирусный пост — это всегда комбинация темы и эмоции. Выберите строку (ваша ниша) и столбец (нужная реакция) — нажмите ячейку, получите идею и механику.</p>
+  <hr class="sec-hr">
+
+    <div class="matrix-wrap">
+        <div class="matrix-grid">
+          <div></div>
+          <div class="m-col-h">Польза /<br>лайфхак</div>
+          <div class="m-col-h">Удивление /<br>шок</div>
+          <div class="m-col-h">Узнавание /<br>«это я»</div>
+          <div class="m-col-h">Спор /<br>мнение</div>
+          <div class="m-col-h">Вдохновение /<br>история</div>
+
+          <!-- Здоровье -->
+          <div class="m-row-h">Здоровье / фитнес</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«3 продукта, которые я убрала из рациона — через месяц ушли 4 кг без диет»" data-why="Конкретика + личный результат. Людям проще убрать, чем добавить — это снижает порог входа и повышает сохраняемость.">Что убрать / добавить</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Ходила 10 000 шагов каждый день 30 дней. Вот что реально изменилось — без прикрас»" data-why="Личный эксперимент с неожиданным итогом. Читатель хочет проверить: «а у меня так же?» — это держит до последней строки.">Эксперимент на себе</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Воскресенье, 22:00. Завтра снова в зал, а ты снова "начнёшь с понедельника". Знакомо?»" data-why="Точная сцена из жизни аудитории — моментальное «это про меня». Самый сильный триггер для пересылки близким.">Сцена из жизни</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Правило 8 стаканов воды в день — откуда взялся этот миф и зачем его продолжают повторять»" data-why="Разрушение мифа вызывает комментарии с обеих сторон — одни согласятся, другие будут спорить. Алгоритм любит оба варианта.">Разрушить миф</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Год назад не могла отжаться ни разу. Сегодня — 20 раз подряд. Честный путь без глянца»" data-why="Трансформация без фильтров: люди сохраняют «на потом», когда сами захотят начать. Слово «честный» удваивает доверие.">Трансформация</div>
+
+          <!-- Деньги -->
+          <div class="m-row-h">Деньги / карьера</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«5 конкретных шагов, которые помогли поднять зарплату на 40% — без смены работы»" data-why="Конкретный результат + пошаговость = максимальная сохраняемость. Люди сохраняют инструкции, чтобы вернуться.">Пошаговый результат</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Уволилась без подушки безопасности. Через 6 месяцев зарабатываю вдвое больше. Как?»" data-why="Неожиданный поворот + резкий контраст в цифрах. Читатель уже удивлён с первого предложения и не может не дочитать.">Неожиданный поворот</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Воскресенье вечером — а ты уже думаешь о работе. Сколько вас таких прямо сейчас?»" data-why="Точный эмоциональный момент, в котором узнаёт себя огромное число людей. Пересылают тем, кто «поймёт».">Эмоция момента</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Почему новый сотрудник зарабатывает больше человека, который работает здесь 5 лет — и кто в этом виноват»" data-why="Несправедливость заряжает на комментарий. Каждый хочет высказаться — с обеих позиций. Охват гарантирован.">Несправедливость</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Мне 34, нет диплома, нет нужных связей. Вот как я вышла на доход 200К — честно»" data-why="«Без привилегий» — самый сильный идентификационный крючок. Люди думают: если она смогла, смогу и я.">Без привилегий</div>
+
+          <!-- Воспитание -->
+          <div class="m-row-h">Воспитание / семья</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Одна фраза, которую я перестала говорить ребёнку — и он изменился за две недели»" data-why="Одно простое действие с видимым результатом — лайтовая польза, которой легко поделиться с партнёром или подругой.">Одно действие</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Детский психолог объяснила, почему ребёнок врёт. Я была в шоке от настоящей причины»" data-why="Авторитетный источник + личная реакция удивления = хочется узнать самому. Сохраняют «почитать потом».">Неочевидная причина</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Когда пятый раз за день говоришь "подожди минуту". Родители — вы здесь?»" data-why="Честная, чуть неловкая сцена. Реакция «я именно так и делаю» — и желание поделиться с теми, кто поймёт.">Честная сцена</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Оценки в школе — нужны или нет? Моя позиция после 3 лет наблюдений — вы удивитесь»" data-why="Тема, по которой у всех есть позиция. Многие хотят отстоять её в комментариях — с обеих сторон.">Дискуссия</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Я поняла, что провожу с телефоном больше времени, чем с ребёнком. Вот что с этим сделала»" data-why="Публичная уязвимость + конкретное действие = высокий уровень доверия. Пересылают то, что решились сказать за тебя.">Уязвимость + действие</div>
+
+          <!-- Творчество -->
+          <div class="m-row-h">Творчество / хобби</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Начала рисовать в 37 лет с нуля — за 3 месяца продала первую работу»" data-why="«С нуля» + конкретный возраст + результат. Снимают барьер «уже поздно», вдохновляют тех, кто давно хочет начать.">Старт с нуля</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Потратила 500 рублей на материалы — заработала 15 000. Показываю, как именно»" data-why="Маленькая сумма вложений + большой результат + конкретные цифры. Самый сильный крючок для хобби-ниш.">Маленькие вложения</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Мои работы год назад и сегодня. Никаких фильтров — только честное "до и после"»" data-why="Контент до/после запускает идентификацию: «я тоже хочу так через год». Сохраняют как мотивацию на потом.">До / после</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Хобби должно приносить деньги — или достаточно просто нравиться? Моя неудобная позиция»" data-why="Вечный спор — люди высказываются с обеих сторон. Слово «неудобная» обещает нестандартный ответ.">Вечный спор</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Бросила работу и уехала на месяц рисовать. Вот что из этого вышло — честно»" data-why="Смелое решение + непредсказуемый финал = досматривают до конца. «Честно» обещает, что не всё было радужно.">Смелое решение</div>
+
+          <!-- Еда -->
+          <div class="m-row-h">Еда / кулинария</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«3 блюда, которые готовлю каждую неделю: быстро, дёшево, вкусно — с рецептами»" data-why="Три ценности сразу (быстро + дёшево + вкусно) = максимальная полезность. Сохраняют в закладки и возвращаются.">Рецепты с ценностью</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Питалась только сезонными продуктами месяц. Вот во сколько это обошлось — я сама не ожидала»" data-why="Эксперимент с цифрами в конце создаёт интригу: читатель хочет узнать — дороже или дешевле, чем обычно.">Финансовый эксперимент</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Когда открываешь холодильник и стоишь перед ним пять минут, не понимая, что приготовить»" data-why="Абсолютно узнаваемая ситуация — люди пересылают это тем, кто тоже «всегда так». Без усилий.">Узнаваемая сцена</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«ПП-еда делает людей несчастными — и вот почему я так считаю»" data-why="Провокационная позиция в популярной теме гарантирует комментарии. Главное — иметь реальные аргументы.">Провокационная позиция</div>
+          <div class="m-cell" onclick="si(this)" data-idea="«Научилась готовить в 28 лет — до этого жила на доставках. Как это изменило мою жизнь»" data-why="Позднее начало + конкретный возраст снимают страх «уже поздно». Люди сохраняют как вдохновение.">Позднее начало</div>
+        </div>
+      </div>
+
+      <div class="m-result" id="mres">
+        <div class="m-result-label">Идея поста — нажмите другую ячейку, чтобы сравнить</div>
+        <div class="m-result-idea" id="mres-idea"></div>
+        <div class="m-result-why" id="mres-why"></div>
+      </div>
+    </div>
+
+    <div class="kp">
+      <div class="kp-label">Как использовать</div>
+      <p>Нашли идею — замените тему на свою нишу, оставьте структуру и эмоцию. Матрица даёт каркас, ваш опыт — наполнение.</p>
+    </div>
+</div>
+
+<!-- ═══ РАЗДЕЛ 02: БАНК ЗАГОЛОВКОВ (белый) ═══ -->
+<section class="section-white" id="headlines">
+  <span class="sec-stamp">Раздел 02</span>
+  <h2 class="sec-title">Банк заголовков по формулам</h2>
+  <p class="sec-sub">Это не готовые посты — шаблоны. Скопируйте, подставьте свою нишу. Хороший заголовок — половина успеха публикации.</p>
+  <hr class="sec-hr">
+
+  <div class="hl-tabs">
+      <button class="hl-tab active" onclick="st('curiosity',this)">Интрига</button>
+      <button class="hl-tab" onclick="st('useful',this)">Польза</button>
+      <button class="hl-tab" onclick="st('story',this)">История</button>
+      <button class="hl-tab" onclick="st('contrast',this)">Контраст</button>
+      <button class="hl-tab" onclick="st('serial',this)">Серия</button>
+    </div>
+
+    <!-- ИНТРИГА -->
+    <div class="hl-panel visible" id="tab-curiosity">
+      <div class="hl-grid">
+        <div class="hl-cat">
+          <div class="hl-cat-title">Признание ошибки</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Я год делала это неправильно — и только сейчас поняла почему</div><div class="hl-iwhy">признание → моментальное доверие</div></div><button class="btn-copy" onclick="cp(this,'Я год делала это неправильно — и только сейчас поняла почему')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Следовала всем советам экспертов — и вот что из этого вышло</div><div class="hl-iwhy">тест на себе → вызов авторитету</div></div><button class="btn-copy" onclick="cp(this,'Следовала всем советам экспертов — и вот что из этого вышло')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Я [действие] и потеряла [результат]. Вот что делала не так</div><div class="hl-iwhy">провал → инсайт</div></div><button class="btn-copy" onclick="cp(this,'Я [действие] и потеряла [результат]. Вот что делала не так')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Крючок-вопрос</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Знаете, почему [популярная практика] не работает так, как вы думаете?</div><div class="hl-iwhy">вопрос → читатель включается</div></div><button class="btn-copy" onclick="cp(this,'Знаете, почему [популярная практика] не работает так, как вы думаете?')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Догадываетесь, что мешает большинству получить [результат]?</div><div class="hl-iwhy">вовлечение с первой строки</div></div><button class="btn-copy" onclick="cp(this,'Догадываетесь, что мешает большинству получить [результат]?')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Что на самом деле происходит с [телом / деньгами / отношениями], когда вы [действие]</div><div class="hl-iwhy">«на самом деле» = обещание правды</div></div><button class="btn-copy" onclick="cp(this,'Что на самом деле происходит с [телом / деньгами / отношениями], когда вы [действие]')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Неожиданный эксперт</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">[Специалист] объяснил мне про [тема] — и я удивилась своей реакции</div><div class="hl-iwhy">авторитет + личная эмоция</div></div><button class="btn-copy" onclick="cp(this,'[Специалист] объяснил мне про [тема] — и я удивилась своей реакции')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Прочитала исследование про [тема] — вот что меня по-настоящему удивило</div><div class="hl-iwhy">наука + личное удивление</div></div><button class="btn-copy" onclick="cp(this,'Прочитала исследование про [тема] — вот что меня по-настоящему удивило')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">То, о чём [эксперты / все] не говорят вслух про [тема]</div><div class="hl-iwhy">обещание эксклюзивного знания</div></div><button class="btn-copy" onclick="cp(this,'То, о чём [эксперты / все] не говорят вслух про [тема]')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Закулисье</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Меня попросили [задача] — вот как это выглядело изнутри</div><div class="hl-iwhy">«изнутри» = доступ к закулисью</div></div><button class="btn-copy" onclick="cp(this,'Меня попросили [задача] — вот как это выглядело изнутри')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Показываю, как выглядит [процесс / результат] на самом деле — без обработки</div><div class="hl-iwhy">антиглянец = доверие</div></div><button class="btn-copy" onclick="cp(this,'Показываю, как выглядит [процесс / результат] на самом деле — без обработки')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Что происходит за кадром у [ниша-эксперт], пока вы видите только результат</div><div class="hl-iwhy">любопытство к «изнанке»</div></div><button class="btn-copy" onclick="cp(this,'Что происходит за кадром у [ниша-эксперт], пока вы видите только результат')">Копировать</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ПОЛЬЗА -->
+    <div class="hl-panel" id="tab-useful">
+      <div class="hl-grid">
+        <div class="hl-cat">
+          <div class="hl-cat-title">Список</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">5 вещей, которые я убрала из [ниша] — и всё стало лучше</div><div class="hl-iwhy">убрать > добавить — легче начать</div></div><button class="btn-copy" onclick="cp(this,'5 вещей, которые я убрала из [ниша] — и всё стало лучше')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Сохраните: [N] инструментов для [ниша] — собирала год</div><div class="hl-iwhy">«сохраните» в заголовке — прямой призыв</div></div><button class="btn-copy" onclick="cp(this,'Сохраните: [N] инструментов для [ниша] — собирала год')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">[N] признаков того, что вы [неосознанно делаете X] — проверьте себя</div><div class="hl-iwhy">самодиагностика = вовлечение</div></div><button class="btn-copy" onclick="cp(this,'[N] признаков того, что вы [неосознанно делаете X] — проверьте себя')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Один приём</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Один вопрос, который я задаю себе каждое утро — и он меняет весь день</div><div class="hl-iwhy">«один» = низкий порог входа</div></div><button class="btn-copy" onclick="cp(this,'Один вопрос, который я задаю себе каждое утро — и он меняет весь день')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Один приём, который убирает [проблема] за 5 минут</div><div class="hl-iwhy">быстрый результат → сохраняют</div></div><button class="btn-copy" onclick="cp(this,'Один приём, который убирает [проблема] за 5 минут')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">3 привычки по 10 минут, которые изменили мой [результат] за 2 месяца</div><div class="hl-iwhy">время + срок = реалистично</div></div><button class="btn-copy" onclick="cp(this,'3 привычки по 10 минут, которые изменили мой [результат] за 2 месяца')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Про тебя</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Если ты [ситуация / проблема] — этот пост для тебя</div><div class="hl-iwhy">точная адресация = высокое вовлечение</div></div><button class="btn-copy" onclick="cp(this,'Если ты [ситуация / проблема] — этот пост для тебя')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Для тех, кто [устал / хочет начать / не знает с чего]: вот первый шаг</div><div class="hl-iwhy">эмоция + конкретное действие</div></div><button class="btn-copy" onclick="cp(this,'Для тех, кто [устал / хочет начать / не знает с чего]: вот первый шаг')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Узнаёте себя? [Описание ситуации из жизни аудитории]</div><div class="hl-iwhy">прямое обращение → немедленная реакция</div></div><button class="btn-copy" onclick="cp(this,'Узнаёте себя? [Описание ситуации из жизни аудитории]')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Шпаргалка</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Шпаргалка по [тема] на одном экране — сохраните или распечатайте</div><div class="hl-iwhy">физическое действие усиливает ценность</div></div><button class="btn-copy" onclick="cp(this,'Шпаргалка по [тема] на одном экране — сохраните или распечатайте')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Всё, что нужно знать про [тема] — коротко и по делу</div><div class="hl-iwhy">обещание краткости = уважение к времени</div></div><button class="btn-copy" onclick="cp(this,'Всё, что нужно знать про [тема] — коротко и по делу')">Копировать</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ИСТОРИЯ -->
+    <div class="hl-panel" id="tab-story">
+      <div class="hl-grid">
+        <div class="hl-cat">
+          <div class="hl-cat-title">Точка А → Б</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Год назад я [ситуация А]. Сегодня — [ситуация Б]. Честно о том, что изменилось</div><div class="hl-iwhy">временной контраст + «честно» = доверие</div></div><button class="btn-copy" onclick="cp(this,'Год назад я [ситуация А]. Сегодня — [ситуация Б]. Честно о том, что изменилось')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Начала [действие] с нуля в [возраст] лет. Вот как это было на самом деле</div><div class="hl-iwhy">«с нуля» + возраст снимают барьер «уже поздно»</div></div><button class="btn-copy" onclick="cp(this,'Начала [действие] с нуля в [возраст] лет. Вот как это было на самом деле')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Провал</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Я провалила [проект / попытку]. Разбираю, что пошло не так — без прикрас</div><div class="hl-iwhy">публичный провал — редкость → читают и пересылают</div></div><button class="btn-copy" onclick="cp(this,'Я провалила [проект / попытку]. Разбираю, что пошло не так — без прикрас')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Потратила [деньги / время] на [действие] — и это не сработало. Честный разбор</div><div class="hl-iwhy">уязвимость + конкретика = сильное доверие</div></div><button class="btn-copy" onclick="cp(this,'Потратила [деньги / время] на [действие] — и это не сработало. Честный разбор')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Все говорили, что это плохая идея. Я сделала — и вот что вышло</div><div class="hl-iwhy">конфликт с мнением большинства = интрига</div></div><button class="btn-copy" onclick="cp(this,'Все говорили, что это плохая идея. Я сделала — и вот что вышло')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Дневниковый формат</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">День [N] без [привычки]. Честный дневник — хорошее и плохое</div><div class="hl-iwhy">серийность встроена в заголовок</div></div><button class="btn-copy" onclick="cp(this,'День [N] без [привычки]. Честный дневник — хорошее и плохое')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Неделя [эксперимента]. Итоги — три вещи, которых не ожидала</div><div class="hl-iwhy">три категории = обещание полного разбора</div></div><button class="btn-copy" onclick="cp(this,'Неделя [эксперимента]. Итоги — три вещи, которых не ожидала')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Смелое решение</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Бросила [привычное] и выбрала [неожиданное]. Через [срок] — вот что</div><div class="hl-iwhy">риск + временной итог = нельзя не дочитать</div></div><button class="btn-copy" onclick="cp(this,'Бросила [привычное] и выбрала [неожиданное]. Через [срок] — вот что')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Год я делала [А]. Потом поменяла на [Б]. Разница оказалась огромной</div><div class="hl-iwhy">сравнение на личном опыте = высокое доверие</div></div><button class="btn-copy" onclick="cp(this,'Год я делала [А]. Потом поменяла на [Б]. Разница оказалась огромной')">Копировать</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- КОНТРАСТ -->
+    <div class="hl-panel" id="tab-contrast">
+      <div class="hl-grid">
+        <div class="hl-cat">
+          <div class="hl-cat-title">Разоблачение</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">«[Популярный совет]» — почему это не работает так, как вам говорят</div><div class="hl-iwhy">цитата + разоблачение = комментарии с обеих сторон</div></div><button class="btn-copy" onclick="cp(this,'«[Популярный совет]» — почему это не работает так, как вам говорят')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Почему «[расхожее убеждение]» — это миф. И откуда он вообще взялся</div><div class="hl-iwhy">история мифа добавляет экспертность</div></div><button class="btn-copy" onclick="cp(this,'Почему «[расхожее убеждение]» — это миф. И откуда он вообще взялся')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Что [индустрия / эксперты] не договаривают про [тема]</div><div class="hl-iwhy">разоблачение системы = сильный виральный триггер</div></div><button class="btn-copy" onclick="cp(this,'Что [индустрия / эксперты] не договаривают про [тема]')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Провокация</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Непопулярное мнение: [тезис, с которым многие не согласятся]</div><div class="hl-iwhy">предупреждение заранее = набирают комментаторов</div></div><button class="btn-copy" onclick="cp(this,'Непопулярное мнение: [тезис, с которым многие не согласятся]')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Все делают [А]. Я делала [Б] — и вот что получила</div><div class="hl-iwhy">личное отклонение от нормы + результат</div></div><button class="btn-copy" onclick="cp(this,'Все делают [А]. Я делала [Б] — и вот что получила')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">А вы уверены, что [расхожая практика] вам действительно помогает?</div><div class="hl-iwhy">вопрос → читатель думает и остаётся</div></div><button class="btn-copy" onclick="cp(this,'А вы уверены, что [расхожая практика] вам действительно помогает?')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Сравнение</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Дорогой вариант vs дешёвый: проверила оба — вот что реально работает</div><div class="hl-iwhy">сравнение + личный тест = высокое доверие</div></div><button class="btn-copy" onclick="cp(this,'Дорогой вариант vs дешёвый: проверила оба — вот что реально работает')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Самый недооценённый способ [результат] — о нём почти никто не говорит</div><div class="hl-iwhy">«недооценённый» = обещание эксклюзива</div></div><button class="btn-copy" onclick="cp(this,'Самый недооценённый способ [результат] — о нём почти никто не говорит')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">До / после</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">До и после: что изменилось за [срок] — конкретно и по пунктам</div><div class="hl-iwhy">структура «до/после» — вечно работающий формат</div></div><button class="btn-copy" onclick="cp(this,'До и после: что изменилось за [срок] — конкретно и по пунктам')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Почему я выбрала [нестандартный путь] — и перестала об этом жалеть</div><div class="hl-iwhy">нестандартный выбор + принятие = история с характером</div></div><button class="btn-copy" onclick="cp(this,'Почему я выбрала [нестандартный путь] — и перестала об этом жалеть')">Копировать</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- СЕРИЯ -->
+    <div class="hl-panel" id="tab-serial">
+      <div class="hl-grid">
+        <div class="hl-cat">
+          <div class="hl-cat-title">Нумерованный запуск</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Мой путь в [ниша]. Часть 1: с чего всё началось — и почему не бросила</div><div class="hl-iwhy">«Часть 1» = прямое обещание продолжения</div></div><button class="btn-copy" onclick="cp(this,'Мой путь в [ниша]. Часть 1: с чего всё началось — и почему не бросила')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">[Тема]: разбираю по одному аспекту каждую неделю. Выпуск 1 — [аспект]</div><div class="hl-iwhy">«каждую неделю» встраивает регулярность</div></div><button class="btn-copy" onclick="cp(this,'[Тема]: разбираю по одному аспекту каждую неделю. Выпуск 1 — [аспект]')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Сезон 1, эпизод 1: [название]. Следующий — в [день]</div><div class="hl-iwhy">сериальный язык создаёт ожидание</div></div><button class="btn-copy" onclick="cp(this,'Сезон 1, эпизод 1: [название]. Следующий — в [день]')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Крюк на следующую часть</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Это была самая простая часть. В следующем посте — то, где большинство срывается</div><div class="hl-iwhy">интрига в конце поста держит подписку</div></div><button class="btn-copy" onclick="cp(this,'Это была самая простая часть. В следующем посте — то, где большинство срывается')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Напишите «+» в комментарии — пришлю следующую часть первым</div><div class="hl-iwhy">комментарий разгоняет пост в алгоритме</div></div><button class="btn-copy" onclick="cp(this,'Напишите «+» в комментарии — пришлю следующую часть первым')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Продолжение в следующий [день]. Подпишитесь, чтобы не потерять</div><div class="hl-iwhy">конкретный день + призыв = логичный шаг</div></div><button class="btn-copy" onclick="cp(this,'Продолжение в следующий [день]. Подпишитесь, чтобы не потерять')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Анонс через ставку</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">В следующий раз — самый неочевидный [аспект темы]. Угадаете?</div><div class="hl-iwhy">вопрос в анонсе = вовлечение в ожидание</div></div><button class="btn-copy" onclick="cp(this,'В следующий раз — самый неочевидный [аспект темы]. Угадаете?')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">Следующий выпуск — то, о чём боятся говорить вслух. В [день]</div><div class="hl-iwhy">интрига + конкретный день = подпишутся</div></div><button class="btn-copy" onclick="cp(this,'Следующий выпуск — то, о чём боятся говорить вслух. В [день]')">Копировать</button></li>
+          </ul>
+        </div>
+        <div class="hl-cat">
+          <div class="hl-cat-title">Рубрика с днём</div>
+          <ul class="hl-list">
+            <li class="hl-item"><div><div class="hl-itxt">Каждый [день]: [рубрика]. Выпуск № [N]</div><div class="hl-iwhy">день + номер = читатель понимает паттерн</div></div><button class="btn-copy" onclick="cp(this,'Каждый [день]: [рубрика]. Выпуск № [N]')">Копировать</button></li>
+            <li class="hl-item"><div><div class="hl-itxt">[День] — традиционно про [тема]. Сегодня — [конкретика]</div><div class="hl-iwhy">«традиционно» = читатель уже знает ритуал</div></div><button class="btn-copy" onclick="cp(this,'[День] — традиционно про [тема]. Сегодня — [конкретика]')">Копировать</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- ═══ РАЗДЕЛ 03: ФОРМАТЫ СЕРИЙ (зелёный) ═══ -->
+<div class="section-soft" id="serial" style="margin-top:0;">
+  <span class="sec-stamp">Раздел 03</span>
+  <h2 class="sec-title">8 форматов сериального контента</h2>
+  <p class="sec-sub">Серия — это не просто «несколько постов на одну тему». У каждого формата своя логика удержания. Нажмите на карточку — посмотрите примеры и крюк.</p>
+  <hr class="sec-hr">
+
+    <div class="serial-grid">
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Дневник процесса</div><div class="ser-tag">Показываешь путь в реальном времени</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Вы делаете что-то прямо сейчас — и показываете это по шагам. Не итог, а процесс. Читатель чувствует, что идёт рядом, и ждёт следующей части как продолжения сериала.</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«Строю дом в деревне. Часть 1 из ?» — каждую неделю новый этап стройки</div>
+            <div class="ser-ex">«30 дней без сахара» — честный ежедневный отчёт с провалами и победами</div>
+            <div class="ser-ex">«Открываю пекарню с нуля» — от идеи до первого клиента</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> заканчивайте на моменте ожидания — «Завтра узнаю, одобрили ли кредит» работает лучше, чем просто «продолжение завтра».</div>
+        </div>
+      </div>
+
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Разбор по частям</div><div class="ser-tag">Большая тема — по одному куску в неделю</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Берёте сложную тему и делите на логические части. Каждый пост самостоятельный, но вместе они дают полную картину. Хорошо работает для экспертных ниш.</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«5 мифов о похудении — разбираю по одному» — каждый пост один миф</div>
+            <div class="ser-ex">«Гид по маркировке рекламы в 2026: часть 1 — что изменилось»</div>
+            <div class="ser-ex">«История импрессионизма за 7 постов» — для культурного блога</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> в конце анонсируйте следующий с интригой — «Следующий раз — самый неочевидный миф, которому верят даже врачи».</div>
+        </div>
+      </div>
+
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Регулярная рубрика</div><div class="ser-tag">Один формат, один день, каждую неделю</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Подписчик знает: каждый понедельник выходит ваш формат. Это создаёт ритуал — читатель ищет вас сам. Самый простой способ начать серию.</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«Понедельник — честный отчёт за неделю. Что получилось, что нет»</div>
+            <div class="ser-ex">«Пятница — рецепт на выходные: одно блюдо, которое готовлю сама»</div>
+            <div class="ser-ex">«Воскресенье — книга недели: 3 мысли, которые зацепили»</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> регулярность и есть крюк. Когда люди знают день выхода — они возвращаются сами, без напоминания.</div>
+        </div>
+      </div>
+
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Эксперимент</div><div class="ser-tag">Проверяешь гипотезу — показываешь результат</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Вы ставите вопрос — «что будет, если...» — и отвечаете публично. Читатель вовлечён, потому что хочет знать: сработало или нет.</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«Питаюсь только сезонными продуктами месяц — считаю деньги каждую неделю»</div>
+            <div class="ser-ex">«Читаю по одной книге в неделю 3 месяца — отчёт каждую пятницу»</div>
+            <div class="ser-ex">«Продвигаю блог без бюджета 30 дней — что выйдет»</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> не давайте итог раньше финала. Делитесь промежуточными данными с неожиданными поворотами — это держит напряжение.</div>
+        </div>
+      </div>
+
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Обучающий сезон</div><div class="ser-tag">Мини-курс внутри блога</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Серия постов, после которых читатель умеет что-то конкретное. Вы — учитель, он — ученик. Подписчики сохраняют все части и советуют другим.</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«Шью первое платье с нуля: 10 постов — 10 шагов»</div>
+            <div class="ser-ex">«Как начать бегать без опыта: с нуля до 5 км за 8 недель»</div>
+            <div class="ser-ex">«Азбука инвестиций: 12 понятий, которые нужно знать каждому»</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> в конце каждого урока — задание. Читатель делает — делится результатом — это новый охватный пост для вас.</div>
+        </div>
+      </div>
+
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Честный рейтинг</div><div class="ser-tag">Тестируешь и оцениваешь по одному</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Берёте список — продуктов, мест, методов, книг — и разбираете честно. Читатель доверяет «своему» человеку больше, чем рекламе. Формат легко монетизировать позже.</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«Пробую все протеины из Fix Price — честный отзыв каждую неделю»</div>
+            <div class="ser-ex">«10 популярных диет: проверяю каждую месяц и считаю деньги»</div>
+            <div class="ser-ex">«Кафе моего района: захожу в новое каждую пятницу»</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> анонс следующего со ставкой — «Следующий — самый дорогой вариант. Угадайте, стоит ли он своих денег?»</div>
+        </div>
+      </div>
+
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Хроника изменений</div><div class="ser-tag">Редкие, но весомые точки во времени</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Не ежедневный дневник, а точки раз в месяц или квартал. Работает, когда результат медленный, но значимый. Подписчики сами пишут: «Ну как там?»</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«Год без алкоголя: отчёт каждые три месяца — честно и по делу»</div>
+            <div class="ser-ex">«Учу китайский: апдейт раз в месяц — цифры и ощущения»</div>
+            <div class="ser-ex">«Ремонт в хрущёвке: точки контроля раз в 2 месяца»</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> конкретная дата следующего отчёта в последнем абзаце. «Следующий апдейт — 1 сентября. Посмотрим, что изменится».</div>
+        </div>
+      </div>
+
+      <div class="ser-card" onclick="ts(this)">
+        <div class="ser-head"><div><div class="ser-name">Гостевая серия</div><div class="ser-tag">Гости дают новый взгляд каждый раз</div></div><div class="ser-toggle">+</div></div>
+        <div class="ser-body"><div class="ser-div"></div>
+          <div class="ser-desc">Один вопрос — разные люди. Читатель возвращается из любопытства: «А что скажет этот?» Плюс — каждый гость приводит свою аудиторию.</div>
+          <div class="ser-ex-lbl">Реальные примеры</div>
+          <div class="ser-exs">
+            <div class="ser-ex">«Спрашиваю одно: как вы начали? — 10 авторов, 10 историй»</div>
+            <div class="ser-ex">«Мой главный провал» — серия интервью с блогерами из вашей ниши</div>
+            <div class="ser-ex">«Мой рацион за день» — разные специалисты, один формат</div>
+          </div>
+          <div class="ser-hook"><strong>Крюк между частями:</strong> анонс следующего гостя с одной деталью — «Следующий гость потерял 100К подписчиков и вырос заново».</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kp" style="margin-top:20px;">
+      <div class="kp-label">Как выбрать</div>
+      <p>Один критерий: какой формат вы сможете делать стабильно раз в неделю? Начните с него. Регулярность важнее идеального выбора формата.</p>
+    </div>
+</div>
+
+</div><!-- /page-wrap -->
+
+<script>
+function si(cell){
+  document.querySelectorAll('.m-cell').forEach(c=>c.classList.remove('active'));
+  cell.classList.add('active');
+  const r=document.getElementById('mres');
+  document.getElementById('mres-idea').textContent=cell.dataset.idea;
+  document.getElementById('mres-why').innerHTML='<strong>Почему работает:</strong> '+cell.dataset.why;
+  r.classList.add('visible');
+  r.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function st(id,btn){
+  document.querySelectorAll('.hl-panel').forEach(p=>p.classList.remove('visible'));
+  document.querySelectorAll('.hl-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('visible');
+  btn.classList.add('active');
+}
+function cp(btn,text){
+  const done=()=>{btn.textContent='✓ Скопировано';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Копировать';btn.classList.remove('copied');},2000);};
+  if(navigator.clipboard){navigator.clipboard.writeText(text).then(done).catch(done);}
+  else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}
+}
+function ts(card){
+  const o=card.classList.contains('open');
+  document.querySelectorAll('.ser-card').forEach(c=>c.classList.remove('open'));
+  if(!o)card.classList.add('open');
+}
+</script>
+</body>
+</html>
