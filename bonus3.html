@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гайд: Виды диалогов с аудиторией</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#FFFFFF;--bg-soft:#F5F6F7;--bg-muted:#EDEEF0;
+  --ink:#1A1A1A;--ink-2:#4A4D52;--ink-3:#8A8E94;--line:#E4E6E9;
+  --accent:#C4F542;--accent-strong:#B8E83D;--accent-ink:#0F1A00;
+  --font-display:'Unbounded',ui-sans-serif,system-ui,sans-serif;
+  --font-body:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --r-sm:10px;--r-md:16px;--r-lg:24px;--r-pill:999px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-body);color:var(--ink);background:var(--bg);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+
+/* ── ОБЛОЖКА ── */
+.cover{background:var(--bg-soft);border-bottom:1px solid var(--line);}
+.cover-inner{max-width:880px;margin:0 auto;padding:60px 32px 48px;}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:20px;display:block;}
+.cover-title{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,4vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;}
+.cover-title em{font-style:normal;background:var(--accent);color:var(--accent-ink);padding:2px 10px 4px;border-radius:8px;}
+.cover-lead{font-size:15px;line-height:1.7;color:var(--ink-2);max-width:580px;margin-bottom:0;}
+
+/* навигация разделов */
+.cover-nav{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);}
+.cnav{padding:20px 24px;text-decoration:none;display:flex;flex-direction:column;gap:0;border-right:1px solid var(--line);transition:background .12s;}
+.cnav:last-child{border-right:none;}
+.cnav:hover{background:var(--bg-muted);}
+.cnav-stamp{display:inline-flex;background:var(--accent);color:var(--accent-ink);padding:3px 9px;border-radius:4px;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;width:fit-content;}
+.cnav-num{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;display:block;}
+.cnav-name{font-family:var(--font-display);font-weight:600;font-size:12px;line-height:1.35;color:var(--ink);margin-bottom:5px;}
+.cnav-desc{font-size:11px;line-height:1.5;color:var(--ink-3);}
+.cnav-arrow{font-family:var(--font-mono);font-size:14px;color:var(--ink-3);margin-top:12px;transition:transform .12s;}
+.cnav:hover .cnav-arrow{transform:translateX(3px);}
+
+/* ── LAYOUT ── */
+.page-wrap{max-width:880px;margin:0 auto;padding:0 32px 100px;}
+.section-soft{background:var(--bg-soft);margin:0 -32px;padding:60px 32px 60px;border-top:1px solid var(--line);}
+.section-white{padding:60px 0 0;}
+.sec-stamp{display:inline-flex;align-items:center;background:var(--accent);color:var(--accent-ink);padding:5px 12px;border-radius:var(--r-sm);font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;}
+.sec-title{font-family:var(--font-display);font-weight:600;font-size:clamp(20px,3vw,26px);letter-spacing:-.015em;line-height:1.15;color:var(--ink);margin-bottom:6px;}
+.sec-sub{font-size:14px;line-height:1.65;color:var(--ink-3);margin-bottom:28px;max-width:680px;}
+.sec-hr{height:1px;background:var(--line);border:none;margin:4px 0 28px;}
+.kp{display:flex;gap:14px;background:var(--bg-muted);border-radius:var(--r-md);padding:16px 20px;border-left:3px solid var(--accent);margin-top:16px;}
+.kp-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;padding-top:2px;flex-shrink:0;}
+.kp p{margin:0;font-weight:600;font-size:14px;line-height:1.55;color:var(--ink);}
+
+/* ── КАРТОЧКИ ФОРМАТОВ ── */
+.formats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fmt-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;cursor:pointer;transition:border-color .12s;position:relative;}
+.fmt-card:hover{border-color:var(--ink-3);}
+.fmt-card.open{border-color:var(--accent-strong);}
+.fmt-card.open::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);}
+.fmt-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px;}
+.fmt-title-wrap{display:flex;flex-direction:column;gap:4px;}
+.fmt-tag{font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent);display:inline-block;padding:2px 8px;border-radius:4px;margin-bottom:2px;width:fit-content;}
+.fmt-name{font-weight:700;font-size:15px;color:var(--ink);line-height:1.3;}
+.fmt-sub{font-size:12px;color:var(--ink-3);}
+.fmt-toggle{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:var(--bg-soft);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink-3);transition:transform .2s,background .12s;margin-top:2px;}
+.fmt-card.open .fmt-toggle{transform:rotate(45deg);background:var(--accent);border-color:var(--accent-strong);color:var(--accent-ink);}
+.fmt-body{max-height:0;overflow:hidden;transition:max-height .3s ease,opacity .2s ease;opacity:0;}
+.fmt-card.open .fmt-body{max-height:1000px;opacity:1;}
+.fmt-divider{height:1px;background:var(--line);margin:0 20px;}
+.fmt-inner{padding:18px 20px;}
+.fmt-desc{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:16px;}
+
+/* примеры внутри карточки */
+.ex-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;}
+.ex-list{display:grid;gap:6px;}
+.ex-item{padding:10px 14px;background:var(--bg-soft);border-radius:var(--r-sm);font-size:13px;color:var(--ink);line-height:1.5;border-left:2px solid var(--line);position:relative;}
+.ex-item.accent-ex{border-left-color:var(--accent);}
+.ex-item strong{font-weight:700;}
+.ex-note{font-size:11px;color:var(--ink-3);margin-top:4px;font-family:var(--font-mono);}
+
+/* совет внутри карточки */
+.fmt-tip{margin-top:12px;padding:11px 14px;background:var(--bg-soft);border-radius:var(--r-sm);border-left:3px solid var(--accent);font-size:12px;color:var(--ink-2);line-height:1.6;}
+.fmt-tip strong{color:var(--ink);}
+
+/* ── БАНК КОНКРЕТНЫХ ФРАЗ ── */
+.phrase-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.phrase-tab{padding:7px 14px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--bg);font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;transition:all .12s;font-family:var(--font-body);}
+.phrase-tab:hover{background:var(--bg-muted);color:var(--ink);}
+.phrase-tab.active{background:var(--accent);border-color:var(--accent-strong);color:var(--accent-ink);}
+.phrase-panel{display:none;}
+.phrase-panel.visible{display:block;}
+.phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.phrase-cat{background:var(--bg-soft);border-radius:var(--r-md);padding:18px;}
+.phrase-cat-title{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent);display:inline-block;padding:3px 10px;border-radius:4px;margin-bottom:14px;}
+.phrase-list{display:grid;gap:6px;}
+.phrase-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:9px 12px;background:var(--bg);border-radius:var(--r-sm);transition:background .1s;}
+.phrase-item:hover{background:#F6FFE8;}
+.phrase-txt{font-size:13px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:2px;}
+.phrase-why{font-size:11px;color:var(--ink-3);font-family:var(--font-mono);}
+.btn-copy{flex-shrink:0;display:inline-flex;align-items:center;padding:5px 10px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--bg);font-size:11px;font-weight:600;color:var(--ink-3);cursor:pointer;transition:all .1s;white-space:nowrap;align-self:flex-start;}
+.btn-copy:hover,.btn-copy.copied{background:var(--accent);border-color:var(--accent-strong);color:var(--accent-ink);}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:none;}}
+@media(max-width:640px){
+  .cover-inner{padding:40px 20px 36px;}
+  .cover-nav{grid-template-columns:1fr 1fr;}
+  .cnav{border-bottom:1px solid var(--line);}
+  .page-wrap{padding:0 20px 80px;}
+  .section-soft{margin:0 -20px;padding:48px 20px 48px;}
+  .formats-grid{grid-template-columns:1fr;}
+  .phrase-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ОБЛОЖКА -->
+<div class="cover">
+  <div class="cover-inner">
+    <span class="eyebrow">Fitstars · Блогер с нуля · Модуль 5 / Урок 3 — дополнительные материалы</span>
+    <h1 class="cover-title">Гайд: <em>виды диалогов</em><br>с аудиторией</h1>
+    <p class="cover-lead">Тишина в комментариях — не потому что контент плохой. Люди просто не получили сигнала. Здесь — восемь форматов диалога с готовыми примерами: берите и пробуйте.</p>
+  </div>
+  <div class="cover-nav">
+    <a class="cnav" href="#formats">
+      <span class="cnav-stamp">Раздел 01</span>
+      <div class="cnav-name">8 форматов диалога</div>
+      <div class="cnav-desc">Опросы, игры, директ, вопрос-ответ и другие</div>
+      <div class="cnav-arrow">→</div>
+    </a>
+    <a class="cnav" href="#phrases">
+      <span class="cnav-num">Раздел 02</span>
+      <div class="cnav-name">Банк фраз</div>
+      <div class="cnav-desc">Готовые формулировки под каждый формат</div>
+      <div class="cnav-arrow">→</div>
+    </a>
+    <a class="cnav" href="#direct">
+      <span class="cnav-stamp">Раздел 03</span>
+      <div class="cnav-name">Директ в посты</div>
+      <div class="cnav-desc">Как использовать сообщения подписчиков как контент</div>
+      <div class="cnav-arrow">→</div>
+    </a>
+    <a class="cnav" href="#rhythm">
+      <span class="cnav-num">Раздел 04</span>
+      <div class="cnav-name">Ритм чередования</div>
+      <div class="cnav-desc">Как не надоесть одним форматом</div>
+      <div class="cnav-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+<!-- ═══ РАЗДЕЛ 01: 8 ФОРМАТОВ ═══ -->
+<div class="section-soft" id="formats">
+  <span class="sec-stamp">Раздел 01</span>
+  <h2 class="sec-title">8 форматов диалога с аудиторией</h2>
+  <p class="sec-sub">Нажмите на карточку — раскроются механика, советы и готовые примеры для вашей ниши.</p>
+  <hr class="sec-hr">
+
+  <div class="formats-grid">
+
+    <!-- 1. ОПРОС -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">01</span>
+          <div class="fmt-name">Опрос</div>
+          <div class="fmt-sub">Самый низкий порог входа</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Опрос — это не про получение статистики. Это про то, чтобы дать людям высказаться одним кликом. Алгоритм видит реакцию мгновенно и начинает расширять показ. Главное правило: вариантов не больше трёх, формулировки — из жизни аудитории, а не из учебника.</div>
+          <div class="ex-label">Примеры — разные ниши</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex"><strong>Здоровье:</strong> «Как вы начинаете утро?» — Кофе / Вода / Сразу в телефон<div class="ex-note">→ результат сам по себе — тема следующего поста</div></div>
+            <div class="ex-item accent-ex"><strong>Карьера:</strong> «Вы бы взяли на работу без опыта, но с огнём в глазах?» — Да / Нет / Зависит от задач</div>
+            <div class="ex-item accent-ex"><strong>Воспитание:</strong> «Ребёнок в 7 лет должен уметь...» — Готовить простое / Делать уборку / Пока ничего обязательного</div>
+            <div class="ex-item accent-ex"><strong>Кулинария:</strong> «Лук в борще — жарить или сырым?» — Только жареный / Только сырой / Смотря какой рецепт<div class="ex-note">→ вечный спор — комментарии гарантированы</div></div>
+            <div class="ex-item accent-ex"><strong>Творчество:</strong> «Вы покупаете работы у частных мастеров?» — Да, часто / Хотела бы, но дорого / Нет, предпочитаю магазин</div>
+            <div class="ex-item accent-ex"><strong>Универсальный:</strong> «Прежде чем читать дальше — быстрый опрос: вы больше [А] или [Б]?»</div>
+          </div>
+          <div class="fmt-tip"><strong>Лайфхак:</strong> после опроса обязательно опубликуйте результат с реакцией — «Вы меня удивили! 67% сказали, что...». Это закрывает петлю и мотивирует участвовать в следующем.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. РЕАКЦИИ -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">02</span>
+          <div class="fmt-name">Реакции как голосование</div>
+          <div class="fmt-sub">Один жест — и человек уже участвует</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Когда даже комментарий кажется слишком большим шагом, реакция — это мост. Привяжите конкретную реакцию к конкретному смыслу: «❤️ если узнали себя», «🔥 если хотите продолжение». Алгоритм читает реакции как вовлечённость, а у вас появляется быстрая обратная связь без единого слова.</div>
+          <div class="ex-label">Форматы использования</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«❤️ — если вы тоже через это прошли. 🤔 — если всё ещё сомневаетесь»</div>
+            <div class="ex-item accent-ex">«Поставьте 🔥 под этим постом — и в пятницу выйдет продолжение»<div class="ex-note">→ реакция как триггер для публикации</div></div>
+            <div class="ex-item accent-ex">«👍 — если хотите гид по этой теме. Наберём 50 — сделаю»<div class="ex-note">→ создаёт общую цель, подписчики сами зовут друзей</div></div>
+            <div class="ex-item accent-ex">«Двойное нажатие на пост, если согласны»<div class="ex-note">→ для платформ с лайком по двойному тапу</div></div>
+            <div class="ex-item accent-ex">«Отправьте этот пост тому, кто вечно начинает с понедельника 😄»<div class="ex-note">→ пересылка = виральность</div></div>
+          </div>
+          <div class="fmt-tip"><strong>Важно:</strong> не злоупотребляйте. Одна просьба о реакции на пост — максимум. Если просить слишком часто, аудитория перестаёт замечать.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ВОПРОС-ОТВЕТ -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">03</span>
+          <div class="fmt-name">День вопросов и ответов</div>
+          <div class="fmt-sub">Аудитория спрашивает — вы отвечаете</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Q&A переворачивает обычную динамику: не вы ведёте, а аудитория задаёт направление. Это мощный сигнал доверия — вы готовы отвечать честно на любой вопрос. Работает как разовый формат и как регулярная рубрика.</div>
+          <div class="ex-label">Варианты запуска</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«Сегодня я отвечаю на всё. Пишите вопросы в комментарии — ни один не оставлю без ответа»<div class="ex-note">→ классический Q&A, хорошо работает в начале отношений с аудиторией</div></div>
+            <div class="ex-item accent-ex">«Спросите меня о [конкретная тема] — всё, что хотели узнать, но не знали как спросить»<div class="ex-note">→ тематический Q&A снижает тревогу «вдруг вопрос глупый»</div></div>
+            <div class="ex-item accent-ex">«Каждую пятницу — ваши вопросы. Публикую пост с самыми интересными и отвечаю развёрнуто»<div class="ex-note">→ регулярная рубрика создаёт ритуал</div></div>
+            <div class="ex-item accent-ex">«Что вы всегда хотели спросить у [ваша роль/ниша], но думали, что это неуместно?»<div class="ex-note">→ снимает барьер, провоцирует неожиданные вопросы</div></div>
+            <div class="ex-item accent-ex">«Задайте один вопрос — я отвечу в следующем посте и назову автора вопроса»<div class="ex-note">→ упоминание имени = мотивация участвовать</div></div>
+            <div class="ex-item accent-ex">«Анонимный Q&A: пишите вопросы через форму — отвечу публично, без имён»<div class="ex-note">→ для чувствительных тем, где люди боятся спросить открыто</div></div>
+          </div>
+          <div class="fmt-tip"><strong>Совет:</strong> если вопросов мало — задайте первый сами. «Часто спрашивают: [вопрос]. Отвечаю...» — это размораживает других.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. СПРОСИТЬ СОВЕТ -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">04</span>
+          <div class="fmt-name">Спросить совет</div>
+          <div class="fmt-sub">Вы просите — они помогают</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Люди любят быть экспертами. Когда вы просите совет — вы не показываете слабость, вы даёте аудитории почувствовать себя нужными и умными. Комментарии появляются быстрее и содержательнее, чем на любой другой формат.</div>
+          <div class="ex-label">Примеры запросов</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«Не могу выбрать между [А] и [Б]. Что бы вы сделали на моём месте?»<div class="ex-note">→ конкретная дилемма даёт конкретные ответы</div></div>
+            <div class="ex-item accent-ex">«Застряла на [задаче]. Поделитесь, как вы с этим справляетесь?»<div class="ex-note">→ признание сложности снижает дистанцию</div></div>
+            <div class="ex-item accent-ex">«Делаю первый [запуск / урок / проект]. Что главное, о чём не забыть?»</div>
+            <div class="ex-item accent-ex">«Если бы вы начинали [тема] заново — что бы сделали иначе?»<div class="ex-note">→ аудитория делится опытом, а не просто советует</div></div>
+            <div class="ex-item accent-ex">«Порекомендуйте: что почитать / посмотреть / попробовать по теме [ниша]»<div class="ex-note">→ лёгкий формат, все любят делиться рекомендациями</div></div>
+            <div class="ex-item accent-ex">«Помогите назвать: пишу пост про [тема], как бы вы его озаглавили?»<div class="ex-note">→ вовлекает в творческий процесс, люди чувствуют соавторство</div></div>
+            <div class="ex-item accent-ex">«Снимаю / пишу / делаю контент про [тему]. Что вам было бы интереснее всего узнать?»<div class="ex-note">→ одновременно исследование аудитории и диалог</div></div>
+          </div>
+          <div class="fmt-tip"><strong>Важно:</strong> обязательно поблагодарите за советы и расскажите, что выбрали. Люди возвращаются, когда видят, что их слышали.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. ИГРЫ -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">05</span>
+          <div class="fmt-name">Игры и задания</div>
+          <div class="fmt-sub">Вовлечение через азарт</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Игровой формат снимает любую серьёзность — люди отвечают легко и с удовольствием, потому что это безопасно. Комментарии появляются как лавина: один написал — остальные захотели тоже. Хорошо работает в начале недели или в пятницу.</div>
+          <div class="ex-label">Игровые форматы</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex"><strong>Угадай:</strong> «Угадайте, сколько времени у меня ушло на [задача]? Ближайший к правильному ответу — получает [приз / упоминание / гайд]»</div>
+            <div class="ex-item accent-ex"><strong>Правда или ложь:</strong> «Три факта обо мне. Один — ложь. Угадайте, какой»<div class="ex-note">→ классика, работает всегда — люди хотят узнать правду</div></div>
+            <div class="ex-item accent-ex"><strong>Закончи фразу:</strong> «Когда я думаю о [теме], первое слово, которое приходит в голову — ...»<div class="ex-note">→ быстро, легко, комментарии летят</div></div>
+            <div class="ex-item accent-ex"><strong>Ассоциации:</strong> «Одно слово — ваша ассоциация с [ниша / тема / понедельник]»</div>
+            <div class="ex-item accent-ex"><strong>Тест:</strong> «Отвечайте только "да" или "нет": [серия утверждений]. Посчитайте свои "да" — расскажу, что они означают»</div>
+            <div class="ex-item accent-ex"><strong>Выбор:</strong> «Этот или тот? Пишите в комментарии — выбираете между двумя без объяснений» [две картинки / варианта]</div>
+            <div class="ex-item accent-ex"><strong>Продолжи историю:</strong> «Начну — вы продолжите. Я проснулась в понедельник и обнаружила...»<div class="ex-note">→ каждый комментарий разный, люди читают чужие ответы</div></div>
+            <div class="ex-item accent-ex"><strong>Рейтинг:</strong> «Оцените от 1 до 10: насколько вы [качество из вашей темы]?»</div>
+          </div>
+          <div class="fmt-tip"><strong>Совет:</strong> всегда раскрывайте ответ сами — расскажите правду, объявите победителя. Незакрытая игра = потеря доверия.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ПОДЕЛИСЬ СВОИМ -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">06</span>
+          <div class="fmt-name">Поделись своим</div>
+          <div class="fmt-sub">Аудитория становится соавтором</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Люди любят говорить о себе — нужно просто дать им повод. Когда вы приглашаете поделиться личным опытом, комментарии становятся не просто реакцией, а маленькими историями. Из них рождается ощущение живого сообщества.</div>
+          <div class="ex-label">Варианты приглашений</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«Покажите ваш [рабочий стол / завтрак / вид из окна / вечерняя рутина] — интересно, как это выглядит у вас»</div>
+            <div class="ex-item accent-ex">«Расскажите о вашей самой большой ошибке в [тема] — я поделилась своей, теперь ваша очередь»<div class="ex-note">→ сначала вы уязвимы — потом они</div></div>
+            <div class="ex-item accent-ex">«Что вы сделали впервые в этом месяце? Даже маленькое считается»</div>
+            <div class="ex-item accent-ex">«Напишите в комментарии одно слово, которое описывает вашу прошлую неделю»<div class="ex-note">→ очень низкий порог, высокий отклик</div></div>
+            <div class="ex-item accent-ex">«Был ли у вас момент, когда [ситуация из вашего поста]? Расскажите»</div>
+            <div class="ex-item accent-ex">«Что вас сейчас больше всего вдохновляет в [теме]? Хочу набрать список для вас»<div class="ex-note">→ из ответов можно сделать отдельный пост</div></div>
+            <div class="ex-item accent-ex">«Поставьте точку в конце, если дочитали до конца — хочу знать, сколько вас»</div>
+            <div class="ex-item accent-ex">«Если бы ваш [день / понедельник / настроение сейчас] был фильмом — как бы он назывался?»</div>
+          </div>
+          <div class="fmt-tip"><strong>Важно:</strong> отвечайте на личные истории лично, не по шаблону. Люди чувствуют разницу мгновенно.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. НЕЗАВЕРШЁННОСТЬ / ПРОДОЛЖЕНИЕ -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">07</span>
+          <div class="fmt-name">Незавершённость и предсказание</div>
+          <div class="fmt-sub">Мозг не может остановиться на паузе</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Обрывайте историю в момент наибольшего напряжения — и люди напишут версии в комментариях, будут ждать продолжения и вернутся сами. Это не кликбейт: вы всегда даёте ответ, просто не сразу.</div>
+          <div class="ex-label">Форматы</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«Я попробовала [метод] — и случилось кое-что неожиданное. Расскажу завтра. Угадайте в комментариях — что вышло?»</div>
+            <div class="ex-item accent-ex">«Мне написали кое-что в директ. Опубликовать или нет? Скажите в комментарии»<div class="ex-note">→ аудитория сама принимает решение — потом следит за результатом</div></div>
+            <div class="ex-item accent-ex">«Продолжение — завтра. Пока — угадайте, чем закончится эта история»</div>
+            <div class="ex-item accent-ex">«Я долго думала, публиковать ли это вообще. Решила — да. Читайте до конца»<div class="ex-note">→ интрига уже в начале</div></div>
+            <div class="ex-item accent-ex">«Знаете, что самое странное в этой ситуации? Расскажу — но сначала: вы сталкивались с подобным?»<div class="ex-note">→ сначала вовлечение, потом раскрытие</div></div>
+            <div class="ex-item accent-ex">«Пост из двух частей. Это — первая. Вторая выйдет, когда под этим появится 20 комментариев»<div class="ex-note">→ комментарии как условие продолжения</div></div>
+          </div>
+          <div class="fmt-tip"><strong>Обязательно:</strong> всегда выполняйте обещание. Если сказали «расскажу завтра» — расскажите завтра. Иначе доверие не вернуть.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. ПРОВОКАЦИЯ / МНЕНИЕ -->
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">08</span>
+          <div class="fmt-name">Мнение и провокация</div>
+          <div class="fmt-sub">Позиция рождает разговор</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Пост без позиции — это пост ни о чём. Когда вы занимаете сторону — одни соглашаются, другие спорят. И те, и другие пишут комментарии. Главное: позиция должна быть аргументированной, иначе это просто шум.</div>
+          <div class="ex-label">Форматы</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex"><strong>Непопулярное мнение:</strong> «Скажу то, с чем многие не согласятся: [тезис]. Вот почему я так считаю»</div>
+            <div class="ex-item accent-ex"><strong>Против течения:</strong> «Все говорят, что нужно [А]. Я делаю [Б] — и вот что из этого вышло»</div>
+            <div class="ex-item accent-ex"><strong>Вечный спор:</strong> «[Тема] — выбрать сторону: [А] или [Б]. Я за [А], и вот почему. А вы?»</div>
+            <div class="ex-item accent-ex"><strong>Честная критика:</strong> «[Популярный совет] — не работает так, как об этом говорят. Разбираю почему»</div>
+            <div class="ex-item accent-ex"><strong>Горячий вопрос:</strong> «[Тема, где нет однозначного ответа] — что думаете? Мне правда интересно»<div class="ex-note">→ формулируйте как вопрос, не как риторику</div></div>
+            <div class="ex-item accent-ex"><strong>Признание:</strong> «Раньше я думала, что [убеждение]. Теперь считаю иначе. Что изменило мой взгляд»<div class="ex-note">→ трансформация мнения = высокое доверие</div></div>
+          </div>
+          <div class="fmt-tip"><strong>Осторожно:</strong> провокация не должна задевать конкретных людей или группы. Спор по делу — да. Осуждение — нет.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="kp" style="margin-top:20px;">
+    <div class="kp-label">Главное правило</div>
+    <p>Не используйте один формат несколько постов подряд. Аудитория привыкает и перестаёт реагировать. Чередуйте — минимум три разных формата в месяц.</p>
+  </div>
+</div>
+
+<!-- ═══ РАЗДЕЛ 02: БАНК ФРАЗ ═══ -->
+<section class="section-white" id="phrases">
+  <span class="sec-stamp">Раздел 02</span>
+  <h2 class="sec-title">Банк фраз для каждого формата</h2>
+  <p class="sec-sub">Готовые формулировки — адаптируйте под свою нишу и тему поста.</p>
+  <hr class="sec-hr">
+
+  <div class="phrase-tabs">
+    <button class="phrase-tab active" onclick="sp('poll',this)">Опросы</button>
+    <button class="phrase-tab" onclick="sp('qa',this)">Вопрос-ответ</button>
+    <button class="phrase-tab" onclick="sp('advice',this)">Советы</button>
+    <button class="phrase-tab" onclick="sp('share',this)">Поделись своим</button>
+    <button class="phrase-tab" onclick="sp('game',this)">Игры</button>
+  </div>
+
+  <!-- ОПРОСЫ -->
+  <div class="phrase-panel visible" id="tab-poll">
+    <div class="phrase-grid">
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Запуск опроса</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Быстрый опрос перед тем, как идти дальше: вы больше [А] или [Б]?</div><div class="phrase-why">ломает скроллинг, требует выбора</div></div><button class="btn-copy" onclick="cp(this,'Быстрый опрос перед тем, как идти дальше: вы больше [А] или [Б]?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Один вопрос — и я узнаю о вас кое-что важное: [вопрос]</div><div class="phrase-why">интригует, снижает безразличие</div></div><button class="btn-copy" onclick="cp(this,'Один вопрос — и я узнаю о вас кое-что важное: [вопрос]')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Мои подписчики делятся ровно пополам по [тема]. Проверим?</div><div class="phrase-why">провоцирует проверить теорию</div></div><button class="btn-copy" onclick="cp(this,'Мои подписчики делятся ровно пополам по [тема]. Проверим?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Поставила опрос — хочу понять, как у вас с [тема]</div><div class="phrase-why">прямо и без лишних слов</div></div><button class="btn-copy" onclick="cp(this,'Поставила опрос — хочу понять, как у вас с [тема]')">Копировать</button></div>
+        </div>
+      </div>
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Публикация результата</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Результаты вас удивят. 73% сказали [ответ] — я не ожидала</div><div class="phrase-why">закрывает петлю, создаёт сюрприз</div></div><button class="btn-copy" onclick="cp(this,'Результаты вас удивят. 73% сказали [ответ] — я не ожидала')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Итоги опроса: [результат]. А вот что это значит на самом деле...</div><div class="phrase-why">даёт смысл цифрам</div></div><button class="btn-copy" onclick="cp(this,'Итоги опроса: [результат]. А вот что это значит на самом деле...')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Вы проголосовали — я слышу. В следующем посте отвечу на запрос большинства</div><div class="phrase-why">показывает, что мнение учитывается</div></div><button class="btn-copy" onclick="cp(this,'Вы проголосовали — я слышу. В следующем посте отвечу на запрос большинства')">Копировать</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВОПРОС-ОТВЕТ -->
+  <div class="phrase-panel" id="tab-qa">
+    <div class="phrase-grid">
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Открытие Q&A</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Сегодня отвечаю на всё. Пишите — ни один вопрос не оставлю без ответа</div><div class="phrase-why">создаёт ощущение доступности</div></div><button class="btn-copy" onclick="cp(this,'Сегодня отвечаю на всё. Пишите — ни один вопрос не оставлю без ответа')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Что вы всегда хотели спросить, но думали, что это неуместно?</div><div class="phrase-why">снимает страх «глупого вопроса»</div></div><button class="btn-copy" onclick="cp(this,'Что вы всегда хотели спросить, но думали, что это неуместно?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Задайте вопрос — отвечу развёрнуто и назову вас в следующем посте</div><div class="phrase-why">упоминание имени = сильная мотивация</div></div><button class="btn-copy" onclick="cp(this,'Задайте вопрос — отвечу развёрнуто и назову вас в следующем посте')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Каждую пятницу — ваши вопросы. Начнём?</div><div class="phrase-why">запуск регулярной рубрики</div></div><button class="btn-copy" onclick="cp(this,'Каждую пятницу — ваши вопросы. Начнём?')">Копировать</button></div>
+        </div>
+      </div>
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Тематический Q&A</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Спросите меня про [тему] — отвечу честно, без приукрашивания</div><div class="phrase-why">«честно» снимает подозрение в рекламе</div></div><button class="btn-copy" onclick="cp(this,'Спросите меня про [тему] — отвечу честно, без приукрашивания')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Я [N] лет в [ниша]. Что хотите узнать — что реально работает, а что нет?</div><div class="phrase-why">опыт как основание для доверия</div></div><button class="btn-copy" onclick="cp(this,'Я [N] лет в [ниша]. Что хотите узнать — что реально работает, а что нет?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Анонимные вопросы принимаю через форму в шапке профиля</div><div class="phrase-why">для чувствительных тем</div></div><button class="btn-copy" onclick="cp(this,'Анонимные вопросы принимаю через форму в шапке профиля')">Копировать</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- СОВЕТЫ -->
+  <div class="phrase-panel" id="tab-advice">
+    <div class="phrase-grid">
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Запрос совета</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Не могу выбрать между [А] и [Б]. Что бы вы сделали на моём месте?</div><div class="phrase-why">конкретная дилемма = конкретные ответы</div></div><button class="btn-copy" onclick="cp(this,'Не могу выбрать между [А] и [Б]. Что бы вы сделали на моём месте?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Делаю [проект] впервые. Что главное — о чём не забыть?</div><div class="phrase-why">честная уязвимость располагает</div></div><button class="btn-copy" onclick="cp(this,'Делаю [проект] впервые. Что главное — о чём не забыть?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Если бы вы начинали [тема] заново — что бы сделали иначе?</div><div class="phrase-why">люди делятся опытом охотно</div></div><button class="btn-copy" onclick="cp(this,'Если бы вы начинали [тема] заново — что бы сделали иначе?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Помогите назвать: пишу пост про [тема] — как бы вы его озаглавили?</div><div class="phrase-why">соавторство = сильное вовлечение</div></div><button class="btn-copy" onclick="cp(this,'Помогите назвать: пишу пост про [тема] — как бы вы его озаглавили?')">Копировать</button></div>
+        </div>
+      </div>
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Запрос рекомендаций</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Порекомендуйте: что почитать / посмотреть / попробовать по теме [ниша]?</div><div class="phrase-why">люди любят делиться находками</div></div><button class="btn-copy" onclick="cp(this,'Порекомендуйте: что почитать / посмотреть / попробовать по теме [ниша]?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Какой контент про [тему] вы читаете помимо меня? Хочу сама посмотреть</div><div class="phrase-why">показывает открытость, не ревность</div></div><button class="btn-copy" onclick="cp(this,'Какой контент про [тему] вы читаете помимо меня? Хочу сама посмотреть')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Снимаю контент про [тему] — что вам было бы интереснее всего узнать?</div><div class="phrase-why">исследование аудитории = диалог</div></div><button class="btn-copy" onclick="cp(this,'Снимаю контент про [тему] — что вам было бы интереснее всего узнать?')">Копировать</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПОДЕЛИСЬ СВОИМ -->
+  <div class="phrase-panel" id="tab-share">
+    <div class="phrase-grid">
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Приглашение к истории</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Я поделилась своей [историей / ошибкой / победой] — теперь ваша очередь</div><div class="phrase-why">взаимность снижает барьер</div></div><button class="btn-copy" onclick="cp(this,'Я поделилась своей [историей / ошибкой / победой] — теперь ваша очередь')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Был ли у вас похожий момент? Расскажите — читаю каждый комментарий</div><div class="phrase-why">обещание внимания = мотивация писать</div></div><button class="btn-copy" onclick="cp(this,'Был ли у вас похожий момент? Расскажите — читаю каждый комментарий')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Напишите в комментарии одно слово, которое описывает вашу прошлую неделю</div><div class="phrase-why">очень низкий порог — высокий отклик</div></div><button class="btn-copy" onclick="cp(this,'Напишите в комментарии одно слово, которое описывает вашу прошлую неделю')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Что вас сейчас больше всего вдохновляет в [теме]? Хочу собрать список</div><div class="phrase-why">из ответов — отдельный пост</div></div><button class="btn-copy" onclick="cp(this,'Что вас сейчас больше всего вдохновляет в [теме]? Хочу собрать список')">Копировать</button></div>
+        </div>
+      </div>
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Лёгкие форматы</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Поставьте точку в конце, если дочитали — хочу знать, сколько вас</div><div class="phrase-why">самый простой призыв, работает стабильно</div></div><button class="btn-copy" onclick="cp(this,'Поставьте точку в конце, если дочитали — хочу знать, сколько вас')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Если ваш день сегодня был фильмом — как бы он назывался?</div><div class="phrase-why">игровой формат с личным ответом</div></div><button class="btn-copy" onclick="cp(this,'Если ваш день сегодня был фильмом — как бы он назывался?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Что вы сделали впервые в этом месяце? Даже маленькое считается</div><div class="phrase-why">«маленькое считается» снимает страх</div></div><button class="btn-copy" onclick="cp(this,'Что вы сделали впервые в этом месяце? Даже маленькое считается')">Копировать</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ИГРЫ -->
+  <div class="phrase-panel" id="tab-game">
+    <div class="phrase-grid">
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Угадай и закончи</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Три факта обо мне. Один — ложь. Угадайте, какой</div><div class="phrase-why">классика — работает всегда</div></div><button class="btn-copy" onclick="cp(this,'Три факта обо мне. Один — ложь. Угадайте, какой')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Когда я думаю о [теме], первое слово, которое приходит в голову — ...</div><div class="phrase-why">заполни пробел — быстро и легко</div></div><button class="btn-copy" onclick="cp(this,'Когда я думаю о [теме], первое слово, которое приходит в голову — ...')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Угадайте, сколько [времени / денег / попыток] у меня ушло на [задача]?</div><div class="phrase-why">азарт угадывания = вовлечение</div></div><button class="btn-copy" onclick="cp(this,'Угадайте, сколько [времени / денег / попыток] у меня ушло на [задача]?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Продолжите фразу: «Если бы я могла изменить одно в [тема] — это было бы...»</div><div class="phrase-why">открытый конец = разнообразные ответы</div></div><button class="btn-copy" onclick="cp(this,'Продолжите фразу: «Если бы я могла изменить одно в [тема] — это было бы...»')">Копировать</button></div>
+        </div>
+      </div>
+      <div class="phrase-cat">
+        <div class="phrase-cat-title">Выбор и рейтинг</div>
+        <div class="phrase-list">
+          <div class="phrase-item"><div><div class="phrase-txt">Оцените от 1 до 10: насколько вы [качество из вашей темы]?</div><div class="phrase-why">цифры — самый быстрый ответ</div></div><button class="btn-copy" onclick="cp(this,'Оцените от 1 до 10: насколько вы [качество из вашей темы]?')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Это или то? Без объяснений — просто [А] или [Б] в комментарии</div><div class="phrase-why">отсутствие аргументации снижает порог</div></div><button class="btn-copy" onclick="cp(this,'Это или то? Без объяснений — просто [А] или [Б] в комментарии')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Назовите три вещи, которые вас бесят в [тема]. Составлю топ из ваших ответов</div><div class="phrase-why">негативные эмоции комментируют охотнее</div></div><button class="btn-copy" onclick="cp(this,'Назовите три вещи, которые вас бесят в [тема]. Составлю топ из ваших ответов')">Копировать</button></div>
+          <div class="phrase-item"><div><div class="phrase-txt">Продолжаем историю: «Она открыла дверь и увидела...» — ваш вариант в комментарии</div><div class="phrase-why">каждый ответ уникален, люди читают чужие</div></div><button class="btn-copy" onclick="cp(this,'Продолжаем историю: «Она открыла дверь и увидела...» — ваш вариант в комментарии')">Копировать</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ РАЗДЕЛ 03: ДИРЕКТ В ПОСТЫ ═══ -->
+<div class="section-soft" id="direct">
+  <span class="sec-stamp">Раздел 03</span>
+  <h2 class="sec-title">Сообщения из директа как контент</h2>
+  <p class="sec-sub">Подписчики пишут в личку — это готовые идеи для постов, живые истории и доказательство доверия аудитории. Главное — убрать всё личное.</p>
+  <hr class="sec-hr">
+
+  <div class="formats-grid">
+
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">Тип А</span>
+          <div class="fmt-name">Вопросы из директа</div>
+          <div class="fmt-sub">Самый частый и простой формат</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Когда несколько человек спрашивают одно и то же в личку — это сигнал: тема нужна всем. Публикуете вопрос (без имени и личных деталей) и отвечаете публично. Это сразу показывает, что вас читают и доверяют.</div>
+          <div class="ex-label">Как оформить</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«Несколько человек написали мне в директ с одним вопросом: [вопрос]. Отвечаю здесь — вдруг полезно и вам»</div>
+            <div class="ex-item accent-ex">«Мне пишут в личку: "[вопрос]". Решила ответить публично — думаю, это важно для многих»</div>
+            <div class="ex-item accent-ex">«Получила сообщение: "[вопрос]". Подписчик разрешил поделиться. Вот мой ответ...»</div>
+            <div class="ex-item accent-ex">«Самый частый вопрос из директа на этой неделе: [вопрос]. Отвечаю подробно»</div>
+          </div>
+          <div class="fmt-tip"><strong>Правило безопасности:</strong> никогда не публикуйте имя, ник, детали биографии или что-либо, что позволяет идентифицировать автора — даже если он сам разрешил. Лучше перестраховаться.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">Тип Б</span>
+          <div class="fmt-name">Истории из директа</div>
+          <div class="fmt-sub">Чужой опыт как зеркало для аудитории</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Подписчики делятся историями, которые резонируют с темой блога. С разрешения автора (или в анонимном формате) вы публикуете историю — это работает лучше любой выдуманной иллюстрации, потому что это настоящее.</div>
+          <div class="ex-label">Форматы публикации</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«Мне написала читательница (с разрешения публикую): "[история, очищенная от личных данных]". Думаю, многие узнают себя»</div>
+            <div class="ex-item accent-ex">«История из директа — имя изменено, детали убраны. [История]. Хотите продолжение — напишите»</div>
+            <div class="ex-item accent-ex">«Получила сообщение, которое не могу не поделиться. Без имён: "[история]". Что думаете?»</div>
+            <div class="ex-item accent-ex">«Рубрика "из директа": каждую неделю — одна история от подписчиков. Сегодня — про [тема]»</div>
+          </div>
+          <div class="fmt-tip"><strong>Как получать больше историй:</strong> в конце поста напишите: «Если у вас была похожая ситуация — напишите мне в директ. Возможно, ваша история поможет другим». Люди откликаются.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">Тип В</span>
+          <div class="fmt-name">Реакции и отзывы</div>
+          <div class="fmt-sub">Доказательство, что вас читают</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Когда кто-то написал «ваш пост изменил мой взгляд» или «попробовала ваш совет — сработало» — это ценнейший контент. Он показывает новым читателям, что блог работает. И мотивирует старых продолжать взаимодействие.</div>
+          <div class="ex-label">Как оформить</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">«Получила сообщение, которое сделало мой день: "[отзыв без имени и деталей]". Это именно то, ради чего я пишу»</div>
+            <div class="ex-item accent-ex">«Читательница написала: "[результат от совета]". Это работает — приятно это видеть»</div>
+            <div class="ex-item accent-ex">«Мне пришло сообщение: "[реакция на пост]". Спасибо — именно такие слова дают силы продолжать»</div>
+            <div class="ex-item accent-ex">«Рубрика: "что вы мне пишете". Без имён — только суть. [Несколько коротких реакций]»<div class="ex-note">→ можно делать раз в месяц как дайджест</div></div>
+          </div>
+          <div class="fmt-tip"><strong>Важно:</strong> всегда спрашивайте разрешения перед публикацией — даже если сообщение кажется нейтральным. Это вопрос уважения и доверия.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fmt-card" onclick="tf(this)">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag">Тип Г</span>
+          <div class="fmt-name">Как чистить директ для поста</div>
+          <div class="fmt-sub">Правила анонимизации</div>
+        </div>
+        <div class="fmt-toggle">+</div>
+      </div>
+      <div class="fmt-body">
+        <div class="fmt-divider"></div>
+        <div class="fmt-inner">
+          <div class="fmt-desc">Перед публикацией любого сообщения из директа — пройдитесь по чек-листу. Даже если автор написал «можно публиковать» — ваша задача защитить его от нежелательной идентификации.</div>
+          <div class="ex-label">Что убрать обязательно</div>
+          <div class="ex-list">
+            <div class="ex-item accent-ex">Имя, ник, город, место работы — любые идентификаторы</div>
+            <div class="ex-item accent-ex">Имена других людей, которые упоминаются в истории</div>
+            <div class="ex-item accent-ex">Конкретные даты, адреса, названия компаний</div>
+            <div class="ex-item accent-ex">Детали, по которым автора может узнать его окружение</div>
+            <div class="ex-item accent-ex">Профессия — если она редкая или очень специфичная</div>
+          </div>
+          <div class="ex-label" style="margin-top:14px;">Что можно оставить</div>
+          <div class="ex-list">
+            <div class="ex-item">Общая ситуация и суть вопроса/истории</div>
+            <div class="ex-item">Возраст — только если важен для контекста и не помогает идентифицировать</div>
+            <div class="ex-item">Общая сфера жизни (работа, семья, здоровье) без деталей</div>
+          </div>
+          <div class="fmt-tip"><strong>Золотое правило:</strong> если после чистки вы сомневаетесь — не публикуйте. Один неудобный пост может стоить доверия всей аудитории.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ РАЗДЕЛ 04: РИТМ ЧЕРЕДОВАНИЯ ═══ -->
+<section class="section-white" id="rhythm">
+  <span class="sec-stamp">Раздел 04</span>
+  <h2 class="sec-title">Ритм чередования форматов</h2>
+  <p class="sec-sub">Один и тот же приём вовлечения несколько раз подряд — и аудитория перестаёт реагировать. Вот как это устроить без таблиц и расписаний.</p>
+  <hr class="sec-hr">
+
+  <div class="formats-grid">
+    <div class="fmt-card" style="cursor:default;border-color:var(--line);">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag" style="background:var(--bg-muted);color:var(--ink-2);">Принцип</span>
+          <div class="fmt-name">Минимум три разных формата в месяц</div>
+          <div class="fmt-sub">Не правило — ориентир</div>
+        </div>
+      </div>
+      <div class="fmt-divider" style="margin:0;"></div>
+      <div class="fmt-inner">
+        <div class="fmt-desc">Не нужно вести таблицу. Достаточно перед публикацией спросить себя: «Прошлые два-три поста — какой там был призыв?» Если вопрос — попробуйте опрос. Если опрос — попробуйте игру или запрос совета.</div>
+      </div>
+    </div>
+
+    <div class="fmt-card" style="cursor:default;border-color:var(--line);">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag" style="background:var(--bg-muted);color:var(--ink-2);">Принцип</span>
+          <div class="fmt-name">Не каждый пост — вовлечение</div>
+          <div class="fmt-sub">Тишина тоже нужна</div>
+        </div>
+      </div>
+      <div class="fmt-divider" style="margin:0;"></div>
+      <div class="fmt-inner">
+        <div class="fmt-desc">Пост без призыва — это не провал. Иногда лучший контент — просто история или инсайт, который читают и сохраняют. Если требовать реакцию в каждом посте — аудитория начинает чувствовать давление.</div>
+      </div>
+    </div>
+
+    <div class="fmt-card" style="cursor:default;border-color:var(--line);">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag" style="background:var(--bg-muted);color:var(--ink-2);">Пример</span>
+          <div class="fmt-name">Неделя без системы</div>
+          <div class="fmt-sub">Как это выглядит вживую</div>
+        </div>
+      </div>
+      <div class="fmt-divider" style="margin:0;"></div>
+      <div class="fmt-inner">
+        <div class="ex-list">
+          <div class="ex-item"><strong>Пн:</strong> история без призыва — просто читают</div>
+          <div class="ex-item"><strong>Ср:</strong> полезный пост + вопрос в конце</div>
+          <div class="ex-item"><strong>Пт:</strong> Q&A — отвечаю на вопросы недели</div>
+          <div class="ex-item" style="margin-top:4px;color:var(--ink-3);font-size:12px;">Три формата, никакой системы — просто разнообразие</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fmt-card" style="cursor:default;border-color:var(--line);">
+      <div class="fmt-head">
+        <div class="fmt-title-wrap">
+          <span class="fmt-tag" style="background:var(--bg-muted);color:var(--ink-2);">Сигнал</span>
+          <div class="fmt-name">Когда менять формат</div>
+          <div class="fmt-sub">Три признака, что пора</div>
+        </div>
+      </div>
+      <div class="fmt-divider" style="margin:0;"></div>
+      <div class="fmt-inner">
+        <div class="ex-list">
+          <div class="ex-item">Три поста подряд с одним типом призыва — и отклик падает</div>
+          <div class="ex-item">На вопросы отвечают менее 5% читателей — вопросы устали</div>
+          <div class="ex-item">Вы сами чувствуете усталость от одного и того же — аудитория чувствует тоже</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kp" style="margin-top:20px;">
+    <div class="kp-label">Итог</div>
+    <p>Вовлечение — это не трюки. Это честный разговор, в котором вы даёте людям повод ответить. Чем естественнее призыв вписан в пост — тем охотнее на него реагируют.</p>
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+
+<script>
+function tf(card){
+  if(card.style.cursor==='default')return;
+  const o=card.classList.contains('open');
+  document.querySelectorAll('.fmt-card').forEach(c=>{if(c.style.cursor!=='default')c.classList.remove('open');});
+  if(!o)card.classList.add('open');
+}
+function sp(id,btn){
+  document.querySelectorAll('.phrase-panel').forEach(p=>p.classList.remove('visible'));
+  document.querySelectorAll('.phrase-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('visible');
+  btn.classList.add('active');
+}
+function cp(btn,text){
+  const done=()=>{btn.textContent='✓ Скопировано';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Копировать';btn.classList.remove('copied');},2000);};
+  if(navigator.clipboard){navigator.clipboard.writeText(text).then(done).catch(done);}
+  else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();}
+}
+</script>
+</body>
+</html>
