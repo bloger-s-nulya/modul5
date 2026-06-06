@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Модуль 5. Урок 1 — Как растёт блог: все способы наращивания аудитории</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:            #FFFFFF;
+    --bg-soft:       #F5F6F7;
+    --bg-muted:      #EDEEF0;
+    --ink:           #1A1A1A;
+    --ink-2:         #4A4D52;
+    --ink-3:         #8A8E94;
+    --line:          #E4E6E9;
+    --accent:        #C4F542;
+    --accent-strong: #B8E83D;
+    --accent-ink:    #0F1A00;
+    --font-display:  'Unbounded', ui-sans-serif, system-ui, sans-serif;
+    --font-body:     'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --font-mono:     'JetBrains Mono', ui-monospace, monospace;
+    --radius-sm:     10px;
+    --radius-md:     16px;
+    --radius-lg:     24px;
+    --radius-pill:   999px;
+    --shadow-sm:     0 1px 2px rgba(16,18,20,.04), 0 1px 1px rgba(16,18,20,.03);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .hero { background: var(--bg-soft); border-bottom: 1px solid var(--line); padding: 56px 32px 48px; }
+  .hero-inner { max-width: 880px; margin: 0 auto; }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px; display: block; }
+  .title-block { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; margin-bottom: 24px; }
+  .stamp { display: inline-flex; align-items: center; justify-content: center; padding: 8px 14px; background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; margin-top: 10px; }
+  .title-text { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -0.02em; }
+  .hero-lead { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink-2); max-width: 720px; }
+  .meta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); flex-shrink: 0; }
+  .chip-dot.accent { background: var(--accent); }
+
+  .nav-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding: 0 32px; }
+  .nav-inner { max-width: 880px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2px; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--ink-2); border: none; background: transparent; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; border-radius: 8px 8px 0 0; }
+  .nav-btn:hover { color: var(--ink); background: var(--bg-muted); }
+  .nav-btn.active { color: var(--ink); border-bottom-color: var(--accent); background: transparent; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--accent-ink); transition: background .15s, color .15s; }
+
+  .page-wrap { max-width: 880px; margin: 0 auto; padding: 0 32px 100px; }
+  .section { padding-top: 60px; }
+  .section-alt { margin: 48px -32px 0; padding: 48px 32px 8px; background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-alt + .section { padding-top: 60px; }
+  @media (max-width: 640px) { .section-alt { margin: 48px -20px 0; padding: 40px 20px 8px; } }
+  .section-label { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+  .section-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--ink-3); flex-shrink: 0; letter-spacing: 0; }
+  .section-title { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1.2; }
+  .section-title-hl { background-image: linear-gradient(transparent 52%, var(--accent) 52%, var(--accent) 94%, transparent 94%); padding: 0 3px; }
+  .section-hr { height: 1px; background: var(--line); border: none; margin: 20px 0 28px; }
+
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px 28px; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .card-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+  .card h3 { font-family: var(--font-body); font-weight: 700; font-size: 18px; margin-bottom: 10px; line-height: 1.3; }
+  .card p, .card li { color: var(--ink-2); font-size: 15px; line-height: 1.65; }
+
+  .key-point { display: flex; gap: 16px; background: var(--bg-soft); border-radius: var(--radius-md); padding: 18px 22px; border-left: 3px solid var(--accent); margin-bottom: 16px; }
+  .key-point-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; padding-top: 3px; flex-shrink: 0; }
+  .key-point p { margin: 0; font-weight: 600; font-size: 15px; line-height: 1.55; color: var(--ink); }
+
+  .formula { background: var(--ink); color: #fff; border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 16px; }
+  .formula-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8E94; margin-bottom: 10px; }
+  .formula-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .formula-step { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 8px; white-space: nowrap; }
+  .formula-arrow { color: var(--accent); font-family: var(--font-mono); font-size: 16px; }
+
+  .callout-warn { background: #FFFBEB; border: 1px solid #F0D080; border-left: 3px solid #E0A000; border-radius: var(--radius-md); padding: 16px 20px; font-size: 14px; color: #5A4500; margin-bottom: 16px; line-height: 1.6; }
+  .callout-warn strong { color: #3A2E00; }
+
+  .secrets-grid { display: grid; gap: 12px; }
+  .secret-item { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); align-items: start; }
+  .secret-num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent); border-radius: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .secret-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .secret-desc { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .steps-list { list-style: none; counter-reset: step; display: grid; gap: 0; }
+  .steps-list li { counter-increment: step; display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .steps-list li:last-child { border-bottom: none; }
+  .steps-list li::before { content: counter(step, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink-3); padding-top: 2px; }
+  .step-title { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .step-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+  .headlines-list { list-style: none; display: grid; gap: 8px; margin-bottom: 16px; }
+  .headlines-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--bg-soft); border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; color: var(--ink); border: 1px solid var(--line); }
+  .headlines-list li::before { content: '—'; font-family: var(--font-mono); color: var(--accent-strong); font-weight: 700; flex-shrink: 0; }
+
+  .checklist-group { margin-bottom: 24px; }
+  .checklist-group-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+  .checklist-items { list-style: none; display: grid; gap: 8px; }
+  .checklist-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-md); cursor: pointer; transition: background .12s; }
+  .checklist-item:hover { background: var(--bg-soft); }
+  .checklist-item.checked { background: #F5FEE0; border-color: #C8F090; }
+  .check-box { flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--ink-3); margin-top: 1px; position: relative; transition: background .12s, border-color .12s; }
+  .checklist-item.checked .check-box { background: var(--accent); border-color: var(--accent); }
+  .checklist-item.checked .check-box::after { content: ''; position: absolute; left: 5px; top: 1px; width: 6px; height: 10px; border-right: 2px solid var(--accent-ink); border-bottom: 2px solid var(--accent-ink); transform: rotate(45deg); }
+  .check-text { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--ink); }
+  .checklist-item.checked .check-text { color: var(--ink-2); text-decoration: line-through; text-decoration-color: var(--ink-3); }
+  .checklist-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .progress-bar-wrap { flex: 1; height: 6px; background: var(--bg-muted); border-radius: var(--radius-pill); overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: var(--radius-pill); transition: width .3s ease; width: 0%; }
+  .progress-label { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+
+  .glossary { display: grid; gap: 10px; }
+  .glossary-item { padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .glossary-term { font-weight: 700; font-size: 15px; margin-bottom: 6px; color: var(--ink); }
+  .glossary-def { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .task-dark { background: var(--ink); color: #fff; border-radius: var(--radius-lg); padding: 32px; margin-top: 24px; }
+  .task-dark h3 { font-family: var(--font-display); font-weight: 500; font-size: 22px; margin-bottom: 16px; letter-spacing: -0.01em; }
+  .task-dark p { color: #CCC; font-size: 15px; line-height: 1.65; margin-bottom: 12px; }
+  .task-steps { list-style: none; display: grid; gap: 10px; margin-bottom: 24px; }
+  .task-steps li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: #CCC; line-height: 1.55; }
+  .task-step-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); font-weight: 600; flex-shrink: 0; padding-top: 2px; }
+  .btn-accent { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: var(--accent); color: var(--accent-ink); font-family: var(--font-body); font-weight: 700; font-size: 14px; border-radius: var(--radius-pill); border: none; cursor: pointer; text-decoration: none; transition: background .15s; }
+  .btn-accent:hover { background: var(--accent-strong); }
+
+  .divider { display: flex; align-items: center; gap: 14px; margin: 24px 0; color: var(--ink-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+  .hl-line { display: inline; background-image: linear-gradient(transparent 55%, var(--accent) 55%, var(--accent) 92%, transparent 92%); padding: 0 2px; font-weight: 600; }
+
+  .section-alt .card, .section-alt .secret-item, .section-alt .glossary-item, .section-alt .checklist-item { background: var(--bg); }
+
+  .footnote { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.55; color: var(--ink-3); font-family: var(--font-body); }
+  .footnote p { margin: 0; }
+  .footnote-mark { color: var(--ink-2); font-weight: 700; margin-right: 4px; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 20px 32px; }
+    .page-wrap { padding: 0 20px 80px; }
+    .nav-bar { padding: 0 20px; }
+    .title-block { grid-template-columns: 1fr; gap: 12px; }
+    .stamp { margin-top: 0; }
+    .formula-steps { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Fitstars · Блогер с нуля</span>
+    <div class="title-block">
+      <span class="stamp">Модуль 5 / Урок 1</span>
+      <span class="title-text">Как растёт блог: все способы наращивания аудитории</span>
+    </div>
+    <p class="hero-lead">Хороший контент удерживает тех, кто уже с вами. А найти вас — это другая история. Разбираем три категории роста и выбираем инструмент под свой этап, бюджет и нишу.</p>
+    <div class="meta-chips">
+      <span class="chip"><span class="chip-dot accent"></span>Анастасия Дробот — Блогер @istor.ichka</span>
+      <span class="chip"><span class="chip-dot"></span>3 категории роста</span>
+      <span class="chip"><span class="chip-dot"></span>6 способов органики</span>
+      <span class="chip"><span class="chip-dot"></span>Платное и оффлайн</span>
+    </div>
+  </div>
+</header>
+
+<!-- НАВИГАЦИЯ -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="navTo('intro')"><span class="nav-num">1</span> Главное</button>
+    <button class="nav-btn" onclick="navTo('organic')"><span class="nav-num">2</span> Органика</button>
+    <button class="nav-btn" onclick="navTo('paid')"><span class="nav-num">3</span> Платно</button>
+    <button class="nav-btn" onclick="navTo('other')"><span class="nav-num">4</span> Другие методы</button>
+    <button class="nav-btn" onclick="navTo('choose')"><span class="nav-num">5</span> Как выбрать</button>
+    <button class="nav-btn" onclick="navTo('checklist')"><span class="nav-num">6</span> Чек-лист</button>
+    <button class="nav-btn" onclick="navTo('glossary')"><span class="nav-num">7</span> Глоссарий</button>
+  </div>
+</nav>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<div class="page-wrap">
+
+  <!-- СЕКЦИЯ 01: ГЛАВНОЕ -->
+  <section class="section" id="intro">
+    <div class="section-label"><span class="section-num">01</span>Главное</div>
+    <h2 class="section-title"><span class="section-title-hl">Миф и фундамент</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Миф</div>
+      <p>«Если буду писать хорошо — люди сами придут». Хороший контент удерживает тех, кто уже подписан. Но найти вас — это отдельная задача. Блог с нуля сам по себе не растёт.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Фундамент — без него ничего не работает</div>
+      <h3>Прежде чем брать любой инструмент</h3>
+      <p>Ответьте честно на два вопроса: <strong>кому</strong> помогает ваш блог и <strong>какую проблему</strong> он решает? Это как пытаться доехать до пункта назначения, не зная направления. Ни один инструмент роста не заработает в полную силу, пока нет ясности по этим двум пунктам.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Три категории роста</div>
+      <h3>Куда раскладываются все способы</h3>
+      <ul class="steps-list">
+        <li>
+          <div>
+            <div class="step-title">Органическое продвижение</div>
+            <div class="step-desc">Бесплатно, но требует времени и регулярности. Работа с алгоритмами платформы, взаимодействие с другими авторами и аудиторией, форматы контента, которые распространяются сами.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Платное продвижение</div>
+            <div class="step-desc">Быстро, но требует бюджета. Реклама у блогеров, продвижение постов внутри платформы, таргетированная реклама. В 2026 году ситуация с рекламными площадками изменилась — нужно проверять актуальные ограничения.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Другие методы</div>
+            <div class="step-desc">Не контент и не реклама: программы платформ, офлайн-активности, СМИ, сарафанное радио. Работают иногда лучше первых двух.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 02: ОРГАНИКА -->
+  <section class="section section-alt" id="organic">
+    <div class="section-label"><span class="section-num">02</span>Органика</div>
+    <h2 class="section-title"><span class="section-title-hl">6 инструментов органического роста</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Главное</div>
+      <p>Органика бесплатна, но трудоёмка. Начинайте с неё — на старте это лучший выбор.</p>
+    </div>
+
+    <div class="secrets-grid">
+      <div class="secret-item">
+        <div class="secret-num">01</div>
+        <div>
+          <div class="secret-title">Триггерный контент</div>
+          <div class="secret-desc">Контент, который не просто лайкают, а комментируют, сохраняют и пересылают. Алгоритм показывает его новым людям бесплатно. Работает: полезные подборки, лайфхаки, разрушение мифов, объяснение сложного простыми словами. В 2026 году особенно ценится прикладной контент — то, что можно применить в жизни.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">02</div>
+        <div>
+          <div class="secret-title">Взаимный пиар (коллаборации)</div>
+          <div class="secret-desc">Найдите автора похожего размера из вашей или смежной ниши — не прямого конкурента, а того, кто работает с той же аудиторией, но решает другую проблему. Нутрициолог + фитнес-тренер, учитель истории + учитель химии. Форматы: совместные видео и эфиры, упоминания, ссылки. Через контент конверсия кратно выше, чем простое упоминание.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">03</div>
+        <div>
+          <div class="secret-title">Активность в комментариях</div>
+          <div class="secret-desc">Пишите развёрнутые экспертные комментарии под чужими постами в своей нише. Люди видят комментарий, переходят в ваш профиль и подписываются. Особенно хорошо работает в нишевых сообществах ВКонтакте и тематических чатах в Telegram. Комментировать можно в транспорте — это «бесплатный» по времени способ.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">04</div>
+        <div>
+          <div class="secret-title">Кросс-постинг</div>
+          <div class="secret-desc">Один контент — несколько платформ. Написали пост для ВКонтакте — разместите тот же текст в Телеграме и в Максе. Три охвата за один пост. Не надо создавать разный контент под каждую платформу: экономьте силы и давайте людям выбор, где вас читать.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">05</div>
+        <div>
+          <div class="secret-title">Программы платформ для новых авторов</div>
+          <div class="secret-desc">ВКонтакте активно продвигает новых авторов через внутренние программы и финансово вознаграждает за норму публикаций и ВК Клипов в месяц. Изучите программу «Фонд авторов ВКонтакте» — если подходите под критерии, это реальная поддержка на старте.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">06</div>
+        <div>
+          <div class="secret-title">Сериальный контент</div>
+          <div class="secret-desc">Серия постов или видео, объединённых одной темой. Создаёт причину возвращаться: подписчик не знает, что будет дальше, и ждёт следующий выпуск. Примеры: «5 мифов о похудении — разбираю по одному в день», «Каждый понедельник — честный отчёт о прогрессе», серия о ремонте квартиры в реальном времени. В 2026 году этот формат набирает силу.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 03: ПЛАТНОЕ ПРОДВИЖЕНИЕ -->
+  <section class="section" id="paid">
+    <div class="section-label"><span class="section-num">03</span>Платное продвижение</div>
+    <h2 class="section-title"><span class="section-title-hl">Платное продвижение</span></h2>
+    <hr class="section-hr">
+
+    <div class="callout-warn">
+      <strong>Важно для 2026 года.</strong> Платное продвижение имеет смысл только тогда, когда профиль уже настроен и понятно, какой контент цепляет аудиторию. Запустить рекламу раньше — деньги уйдут впустую: пользователь зайдёт в профиль и не подпишется.
+    </div>
+
+    <div class="card">
+      <div class="card-label">Реклама у блогеров</div>
+      <h3>Микроблогеры работают лучше миллионников</h3>
+      <p>Авторы с небольшой, но лояльной аудиторией (несколько тысяч подписчиков) часто дают результат лучше, чем крупные блогеры. Выбирайте тех, <strong>чья аудитория совпадает с вашей</strong>. Перед закупкой отслеживайте их контент: нет ли противоречий, не рекламируют ли сомнительных вещей. Доверие подписчика — ключевой фактор: без него реклама не даёт никакого результата.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Таргетированная реклама</div>
+      <h3>Реклама на конкретную аудиторию</h3>
+      <p>Таргет — это вид рекламы, которую вы настраиваете сами и показываете не всем подряд, а выбранной группе пользователей. В 2026 году доступна в <strong>ВКонтакте</strong> и <strong>Яндекс.Директе</strong>. На других площадках реклама юридически ограничена. Если хорошо знаете свою аудиторию — можете настраивать самостоятельно. Или обратиться к специалисту по таргету.</p>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 04: ДРУГИЕ МЕТОДЫ -->
+  <section class="section section-alt" id="other">
+    <div class="section-label"><span class="section-num">04</span>Другие методы</div>
+    <h2 class="section-title"><span class="section-title-hl">Другие методы</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Про что это</div>
+      <p>Не контент и не реклама — но работают иногда лучше обоих. Про эти инструменты часто не думают и не говорят.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Офлайн-активности</div>
+      <h3>Высокая конверсия живой встречи</h3>
+      <p>Публичные выступления, мастер-классы. Люди, которые видели вас вживую, подписываются с <span class="hl-line">очень высокой конверсией</span>. Правило: всегда оставляйте QR-код на свои соцсети и выделяйте минуту на самопрезентацию во время выступления.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">СМИ и медиа</div>
+      <h3>Экспертный комментарий или упоминание</h3>
+      <p>Ваш комментарий в статье, упоминание в подборке — это новая аудитория, которая приходит из внешних источников. Если есть известность в определённых кругах, можно получать приглашения на интервью, становиться героем статей. В материалах обязательно оставляйте ссылки на свои соцсети.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Сарафанное радио</div>
+      <h3>Органические рекомендации</h3>
+      <p>Когда существующие подписчики сами рекомендуют вас друзьям и знакомым. Запустить намеренно сложно, но оно появляется как следствие хорошего контента и живого общения с аудиторией.</p>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 05: КАК ВЫБРАТЬ -->
+  <section class="section" id="choose">
+    <div class="section-label"><span class="section-num">05</span>Как выбрать</div>
+    <h2 class="section-title"><span class="section-title-hl">Три вопроса для выбора своего метода</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Принцип</div>
+      <p>Один метод, который делаете регулярно, сильнее десяти методов, попробованных по одному разу. Начните с 1–2 инструментов — и доведите до результата.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Вопрос 1 · Время</div>
+      <ul class="steps-list">
+        <li>
+          <div>
+            <div class="step-title">Мало времени — берём «встраиваемые» методы</div>
+            <div class="step-desc">Активность в комментариях — пока едете в транспорте. Кросс-постинг — публикуем то, что уже сделали. Не нужно выделять отдельное время.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Достаточно времени — беремся за создание</div>
+            <div class="step-desc">Триггерный контент, сериальность, коллаборации — требуют погружения. Если есть пара часов в неделю — отличный выбор.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Вопрос 2 · Бюджет</div>
+      <ul class="steps-list">
+        <li>
+          <div>
+            <div class="step-title">Бюджета нет</div>
+            <div class="step-desc">Только органика или другие методы. Все шесть органических инструментов — бесплатные.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Есть небольшой бюджет</div>
+            <div class="step-desc">Купите рекламу у микроблогера из вашей ниши. Это самый эффективный старт в платном продвижении.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Вопрос 3 · Платформа</div>
+      <ul class="steps-list">
+        <li>
+          <div>
+            <div class="step-title">Пользуйтесь преимуществами своей платформы</div>
+            <div class="step-desc">Есть ли на ней программы поддержки новых авторов? Доступен ли таргет? Например, ВКонтакте — одна из немногих платформ с активной программой поддержки авторов и работающим таргетом.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 06: ЧЕК-ЛИСТ -->
+  <section class="section" id="checklist">
+    <div class="section-label"><span class="section-num">06</span>Чек-лист</div>
+    <h2 class="section-title"><span class="section-title-hl">Проверьте: вы готовы к работе с инструментами?</span></h2>
+    <hr class="section-hr">
+
+    <div class="checklist-progress">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <span class="progress-label" id="progress-label">0 / 7</span>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">Фундамент</div>
+      <ul class="checklist-items">
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Я сформулировал(а), кому помогает мой блог и какую проблему решает</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Мой профиль выглядит понятно для новых посетителей: из описания ясно, о чём блог</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">Выбор метода</div>
+      <ul class="checklist-items">
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Я выбрал(а) 1–2 конкретных метода продвижения на эту неделю</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Я записал(а) конкретное действие с датой — не «попробую», а «сделаю до …»</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Метод соответствует моим реальным ресурсам: времени и бюджету</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="checklist-group">
+      <div class="checklist-group-title">Платное продвижение (если планируете)</div>
+      <ul class="checklist-items">
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Профиль наполнен цепляющим контентом — есть что показать новым посетителям</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <span class="check-text">Я проверил(а) актуальные правила рекламы на выбранной платформе (особенно важно в 2026 году)</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 07: ГЛОССАРИЙ -->
+  <section class="section section-alt" id="glossary">
+    <div class="section-label"><span class="section-num">07</span>Глоссарий</div>
+    <h2 class="section-title"><span class="section-title-hl">Глоссарий урока</span></h2>
+    <hr class="section-hr">
+
+    <div class="glossary">
+      <div class="glossary-item">
+        <div class="glossary-term">Органическое продвижение</div>
+        <div class="glossary-def">Бесплатный рост блога за счёт алгоритмов платформы, контента и взаимодействий с аудиторией — без вложения денег. Требует времени и регулярности.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Триггерный контент</div>
+        <div class="glossary-def">Публикации, которые вызывают активную реакцию: комментарии, сохранения, репосты. Алгоритм платформы начинает показывать такой контент незнакомым пользователям без дополнительных затрат.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Взаимный пиар (ВП)</div>
+        <div class="glossary-def">Обмен аудиторией с автором из смежной ниши: упоминания, ссылки, совместный контент. Работает между авторами похожего размера, которые работают с одной аудиторией, но решают разные задачи.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Кросс-постинг</div>
+        <div class="glossary-def">Публикация одного и того же или адаптированного контента сразу на нескольких платформах. Позволяет увеличить охват без создания уникального материала под каждый канал.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Таргетированная реклама</div>
+        <div class="glossary-def">Платная реклама, настраиваемая на конкретную аудиторию по возрасту, интересам, географии и другим параметрам. В 2026 году доступна в ВКонтакте и Яндекс.Директе.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Сериальный контент</div>
+        <div class="glossary-def">Серия публикаций, объединённых одной темой и выходящих регулярно. Создаёт причину возвращаться: подписчик ждёт продолжения и с меньшей вероятностью отписывается.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЗАДАНИЕ -->
+  <section class="section section-alt" id="task">
+    <div class="task-dark">
+      <h3>Практическое задание</h3>
+      <p>Два конкретных шага — не «попробовать всё», а сосредоточиться на одном и довести до конца.</p>
+      <ul class="task-steps">
+        <li>
+          <span class="task-step-num">01</span>
+          <span>Выберите <strong style="color:#fff;">1–2 метода</strong> из урока и попробуйте на этой неделе. Запишите <strong style="color:#fff;">конкретное действие</strong>. Например: «Сегодня напишу трём блогерам из моей ниши и предложу коллаборацию».</span>
+        </li>
+        <li>
+          <span class="task-step-num">02</span>
+          <span>Зафиксируйте в заметках: <strong style="color:#fff;">«Мой метод продвижения на эту неделю — такой-то. Конкретные действия: такие-то. Срок: до такой-то даты»</strong>. Это превращает намерение в план.</span>
+        </li>
+      </ul>
+      <a class="btn-accent" onclick="navTo('checklist')" style="cursor:pointer;">Открыть чек-лист ↑</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  function navTo(id) {
+    const el = document.getElementById(id);
+    if (el) { window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' }); }
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const sections = ['intro','organic','paid','other','choose','checklist','glossary'];
+    const idx = sections.indexOf(id);
+    if (idx > -1) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  }
+  function toggleCheck(item) { item.classList.toggle('checked'); updateProgress(); }
+  function updateProgress() {
+    const all = document.querySelectorAll('.checklist-item');
+    const done = document.querySelectorAll('.checklist-item.checked');
+    const pct = all.length ? Math.round((done.length / all.length) * 100) : 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = done.length + ' / ' + all.length;
+  }
+  updateProgress();
+  window.addEventListener('scroll', () => {
+    const sections = ['intro','organic','paid','other','choose','checklist','glossary','task'];
+    const offset = 120;
+    let current = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY + offset >= el.offsetTop) current = i;
+    });
+    document.querySelectorAll('.nav-btn').forEach((b, i) => {
+      b.classList.toggle('active', i === Math.min(current, 6));
+    });
+  });
+</script>
+
+</body>
+</html>
