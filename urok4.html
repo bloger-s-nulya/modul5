@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Модуль 5. Урок 4 — Когда и как закупать рекламу блога</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:            #FFFFFF;
+    --bg-soft:       #F5F6F7;
+    --bg-muted:      #EDEEF0;
+    --ink:           #1A1A1A;
+    --ink-2:         #4A4D52;
+    --ink-3:         #8A8E94;
+    --line:          #E4E6E9;
+    --accent:        #C4F542;
+    --accent-strong: #B8E83D;
+    --accent-ink:    #0F1A00;
+    --font-display:  'Unbounded', ui-sans-serif, system-ui, sans-serif;
+    --font-body:     'Manrope', ui-sans-serif, system-ui, sans-serif;
+    --font-mono:     'JetBrains Mono', ui-monospace, monospace;
+    --radius-sm:     10px;
+    --radius-md:     16px;
+    --radius-lg:     24px;
+    --radius-pill:   999px;
+    --shadow-sm:     0 1px 2px rgba(16,18,20,.04), 0 1px 1px rgba(16,18,20,.03);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .hero { background: var(--bg-soft); border-bottom: 1px solid var(--line); padding: 56px 32px 48px; }
+  .hero-inner { max-width: 880px; margin: 0 auto; }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px; display: block; }
+  .title-block { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; margin-bottom: 24px; }
+  .stamp { display: inline-flex; align-items: center; justify-content: center; padding: 8px 14px; background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; margin-top: 10px; }
+  .title-text { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -0.02em; }
+  .hero-lead { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink-2); max-width: 720px; }
+  .meta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); flex-shrink: 0; }
+  .chip-dot.accent { background: var(--accent); }
+
+  .nav-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding: 0 32px; }
+  .nav-inner { max-width: 880px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2px; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--ink-2); border: none; background: transparent; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; border-radius: 8px 8px 0 0; }
+  .nav-btn:hover { color: var(--ink); background: var(--bg-muted); }
+  .nav-btn.active { color: var(--ink); border-bottom-color: var(--accent); background: transparent; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--accent-ink); }
+
+  .page-wrap { max-width: 880px; margin: 0 auto; padding: 0 32px 100px; }
+  .section { padding-top: 60px; }
+  .section-alt { margin: 48px -32px 0; padding: 48px 32px 8px; background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-label { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+  .section-title { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1.2; }
+  .section-title-hl { background-image: linear-gradient(transparent 52%, var(--accent) 52%, var(--accent) 94%, transparent 94%); padding: 0 3px; }
+  .section-hr { height: 1px; background: var(--line); border: none; margin: 20px 0 28px; }
+
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px 28px; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .card-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+  .card h3 { font-family: var(--font-body); font-weight: 700; font-size: 18px; margin-bottom: 10px; line-height: 1.3; }
+  .card p, .card li { color: var(--ink-2); font-size: 15px; line-height: 1.65; }
+  .card ul { padding-left: 0; list-style: none; display: grid; gap: 8px; margin-top: 10px; }
+  .card ul li { display: flex; gap: 10px; align-items: flex-start; }
+  .card ul li::before { content: '—'; font-family: var(--font-mono); color: var(--accent-strong); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  .key-point { display: flex; gap: 16px; background: var(--bg-soft); border-radius: var(--radius-md); padding: 18px 22px; border-left: 3px solid var(--accent); margin-bottom: 16px; }
+  .key-point-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; padding-top: 3px; flex-shrink: 0; }
+  .key-point p { margin: 0; font-weight: 600; font-size: 15px; line-height: 1.55; color: var(--ink); }
+
+  .callout-warn { background: #FFFBEB; border: 1px solid #F0D080; border-left: 3px solid #E0A000; border-radius: var(--radius-md); padding: 16px 20px; font-size: 14px; color: #5A4500; margin-bottom: 16px; line-height: 1.6; }
+  .callout-warn strong { color: #3A2E00; }
+
+  .secrets-grid { display: grid; gap: 12px; margin-bottom: 16px; }
+  .secret-item { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); align-items: start; }
+  .secret-num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent); border-radius: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .secret-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .secret-desc { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .steps-list { list-style: none; counter-reset: step; display: grid; gap: 0; }
+  .steps-list li { counter-increment: step; display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .steps-list li:last-child { border-bottom: none; }
+  .steps-list li::before { content: counter(step, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink-3); padding-top: 2px; }
+  .step-title { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .step-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+  /* Таблица да/нет */
+  .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .decision-col { border-radius: var(--radius-md); padding: 20px 22px; }
+  .decision-col.yes { background: #F2FDE4; border: 1px solid #C4EF80; }
+  .decision-col.no { background: #FFF2F2; border: 1px solid #F0BBBB; }
+  .decision-col-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+  .decision-col.yes .decision-col-label { color: #3A6B00; }
+  .decision-col.no .decision-col-label { color: #A02020; }
+  .decision-list { list-style: none; display: grid; gap: 8px; }
+  .decision-list li { font-size: 14px; line-height: 1.55; display: flex; gap: 8px; align-items: flex-start; }
+  .decision-list li::before { font-weight: 700; flex-shrink: 0; font-size: 15px; margin-top: -1px; }
+  .decision-col.yes .decision-list li::before { content: '✓'; color: #3A6B00; }
+  .decision-col.no .decision-list li::before { content: '✕'; color: #A02020; }
+
+  /* Бюджет-карточки */
+  .budget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .budget-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 20px 22px; }
+  .budget-range { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .budget-label { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .budget-desc { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+  .budget-tag { display: inline-flex; margin-top: 10px; padding: 4px 10px; background: var(--bg-muted); border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; color: var(--ink-3); }
+
+  /* Чек входящей рекламы */
+  .check-grid { display: grid; gap: 10px; margin-bottom: 16px; }
+  .check-row { display: flex; gap: 14px; padding: 14px 18px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); align-items: flex-start; }
+  .check-icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; margin-top: 1px; }
+  .check-icon.look { background: #EEF4FF; }
+  .check-icon.warn { background: #FFF8E0; }
+  .check-row-title { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+  .check-row-desc { font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+
+  .checklist-items { list-style: none; display: grid; gap: 8px; }
+  .checklist-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-md); cursor: pointer; transition: background .12s; }
+  .checklist-item:hover { background: var(--bg-soft); }
+  .checklist-item.checked { background: #F5FEE0; border-color: #C8F090; }
+  .check-box { flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--ink-3); margin-top: 1px; position: relative; transition: background .12s, border-color .12s; }
+  .checklist-item.checked .check-box { background: var(--accent); border-color: var(--accent); }
+  .checklist-item.checked .check-box::after { content: ''; position: absolute; left: 5px; top: 1px; width: 6px; height: 10px; border-right: 2px solid var(--accent-ink); border-bottom: 2px solid var(--accent-ink); transform: rotate(45deg); }
+  .check-text { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--ink); }
+  .checklist-item.checked .check-text { color: var(--ink-2); text-decoration: line-through; text-decoration-color: var(--ink-3); }
+  .checklist-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .progress-bar-wrap { flex: 1; height: 5px; background: var(--bg-muted); border-radius: var(--radius-pill); overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: var(--radius-pill); transition: width .3s ease; }
+  .progress-label { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+
+  .callout-dark { background: var(--ink); color: #fff; border-radius: var(--radius-lg); padding: 28px 32px; margin-top: 8px; }
+  .callout-dark h3 { font-family: var(--font-display); font-weight: 500; font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .callout-dark p { color: #CCC; font-size: 15px; line-height: 1.65; margin-bottom: 0; }
+
+  .divider { display: flex; align-items: center; gap: 14px; margin: 28px 0; color: var(--ink-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+  .hl { display: inline; background-image: linear-gradient(transparent 55%, var(--accent) 55%, var(--accent) 92%, transparent 92%); padding: 0 2px; font-weight: 600; }
+
+  .glossary { display: grid; gap: 10px; }
+  .glossary-item { padding: 14px 18px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .glossary-term { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .glossary-def { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 20px 32px; }
+    .page-wrap { padding: 0 20px 80px; }
+    .nav-bar { padding: 0 20px; }
+    .title-block { grid-template-columns: 1fr; gap: 10px; }
+    .stamp { margin-top: 0; }
+    .decision-grid { grid-template-columns: 1fr; }
+    .section-alt { margin: 48px -20px 0; padding: 40px 20px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Fitstars · Блогер с нуля · Модуль 5</span>
+    <div class="title-block">
+      <span class="stamp">Модуль 5 / Урок 4</span>
+      <span class="title-text">Когда и как закупать рекламу блога</span>
+    </div>
+    <p class="hero-lead">Реклама — не волшебная кнопка роста, а инструмент с правилами. Разбираем, когда вы готовы к закупке, куда идти с бюджетом от 500 рублей — и как не слить деньги на рекламу, которая не работает.</p>
+    <div class="meta-chips">
+      <span class="chip"><span class="chip-dot accent"></span>Текстовый урок</span>
+      <span class="chip"><span class="chip-dot"></span>ВКонтакте · Telegram · MAX</span>
+      <span class="chip"><span class="chip-dot"></span>Бюджет от 500 ₽</span>
+      <span class="chip"><span class="chip-dot"></span>Входящие предложения</span>
+    </div>
+  </div>
+</header>
+
+<!-- НАВИГАЦИЯ -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="navTo('ready')"><span class="nav-num">1</span> Готовность</button>
+    <button class="nav-btn" onclick="navTo('where')"><span class="nav-num">2</span> Куда идти</button>
+    <button class="nav-btn" onclick="navTo('budget')"><span class="nav-num">3</span> Бюджет</button>
+    <button class="nav-btn" onclick="navTo('incoming')"><span class="nav-num">4</span> Входящие</button>
+    <button class="nav-btn" onclick="navTo('checklist')"><span class="nav-num">5</span> Чек-лист</button>
+    <button class="nav-btn" onclick="navTo('glossary')"><span class="nav-num">6</span> Глоссарий</button>
+  </div>
+</nav>
+
+<!-- КОНТЕНТ -->
+<div class="page-wrap">
+
+  <!-- СЕКЦИЯ 01: ГОТОВНОСТЬ -->
+  <section class="section" id="ready">
+    <div class="section-label">01 — Готовность к рекламе</div>
+    <h2 class="section-title"><span class="section-title-hl">Сначала — честный вопрос себе</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Главное</div>
+      <p>Реклама приводит людей в ваш блог. Если блог пустой или непонятный — они уйдут. Деньги потрачены, подписчиков нет. Сначала — основа, потом — трафик.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Три вопроса перед первой закупкой</div>
+      <h3>Вы готовы к рекламе, если отвечаете «да» на все три</h3>
+      <ol class="steps-list" style="margin-top: 16px;">
+        <li>
+          <div>
+            <div class="step-title">Профиль понятен с первого взгляда</div>
+            <div class="step-desc">Новый человек заходит — и сразу понимает, о чём блог и чем вы полезны. Аватар, название, описание, закреплённый пост или хайлайты — всё говорит об одном.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Есть хотя бы 10–15 постов</div>
+            <div class="step-desc">Пришедший с рекламы должен увидеть живой блог — не два поста за полгода. Контент показывает, чего ждать дальше. Без него человек уходит, не подписавшись.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Понятно, кому вы пишете</div>
+            <div class="step-desc">Если вы ещё не знаете свою аудиторию — реклама не поможет найти её быстрее. Она только масштабирует то, что уже есть. Сначала найдите первых читателей органикой, поймите кто они — потом усиливайте платно.</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Распространённая ошибка.</strong> Запускать рекламу на только что созданный блог. Алгоритм ВКонтакте и сам по себе активно продвигает новых авторов — дайте органике поработать хотя бы месяц-полтора, прежде чем вкладывать деньги.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 02: КУДА ИДТИ -->
+  <section class="section section-alt" id="where">
+    <div class="section-label">02 — Куда идти с рекламой</div>
+    <h2 class="section-title"><span class="section-title-hl">Где искать блогеров для рекламы</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Принцип</div>
+      <p>Начинайте с рекламы у микроблогеров — она дешевле, аудитория теплее и проще договориться. Таргет и биржи — следующий шаг, когда уже понятно, что цепляет.</p>
+    </div>
+
+    <div class="secrets-grid">
+      <div class="secret-item">
+        <div class="secret-num">01</div>
+        <div>
+          <div class="secret-title">ВКонтакте — VK AdBlogger</div>
+          <div class="secret-desc">Официальная платформа VK для рекламы у авторов и в сообществах — adblogger.vk.ru. В каталоге больше 45 000 площадок с фильтрами по тематике и охватам.<br><br>
+          С июня 2026 года VK переводит всё взаимодействие рекламодателей с авторами на эту платформу — маркет-платформа уходит в прошлое. Порог входа невысокий, подходит для небольших бюджетов.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">02</div>
+        <div>
+          <div class="secret-title">Вручную — через поиск и комментарии</div>
+          <div class="secret-desc">Работает на любой платформе и не требует регистрации на биржах.<br><br>
+          <strong style="color: var(--ink); font-size: 13px;">Telegram:</strong> поиск по ключевым словам вашей ниши → смотрите на охваты последних постов → пишете администратору напрямую.<br><br>
+          <strong style="color: var(--ink); font-size: 13px;">ВКонтакте:</strong> тематические сообщества → комментарии под постами → кто пишет экспертно и собирает реакции, тот и нужен вам.<br><br>
+          <strong style="color: var(--ink); font-size: 13px;">MAX:</strong> платформа молодая, биржи только формируются. Пока лучший способ — поиск по нише вручную и личные сообщения авторам.<br><br>
+          Плюс ручного поиска — можно найти очень точное совпадение по аудитории там, где биржи ещё не собрали базу.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">03</div>
+        <div>
+          <div class="secret-title">Telegram и MAX — биржи слотов</div>
+          <div class="secret-desc">Маркетплейс, где вы сами выбираете канал, дату и формат без лишних переписок с администраторами.<br><br>
+          <strong style="color: var(--ink); font-size: 13px;">Telega.in</strong> — крупная официальная биржа. Каталог тысяч каналов с метриками, защита бюджета, сделки без личного контакта с администратором.<br><br>
+          <strong style="color: var(--ink); font-size: 13px;">TGStat</strong> — в первую очередь аналитика: проверить охваты, динамику роста и накрутку. Есть и каталог каналов с ценами. Используйте как инструмент проверки перед любой закупкой.<br><br>
+          <strong style="color: var(--ink); font-size: 13px;">«Юра, закупайся!» — uraslot.ru</strong> — биржа слотов для Telegram и MAX без комиссии, с фильтрами по тематике, охватам и датам. Плюс большое сообщество закупщиков, где можно спросить совет.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">На что смотреть, выбирая блогера для рекламы</div>
+      <h3>Не число подписчиков, а качество аудитории</h3>
+      <ul>
+        <li>Вовлечённость — сколько комментариев и репостов на пост относительно подписчиков. 1–3% — норма, больше — хорошо.</li>
+        <li>Совпадение аудитории — читатели блогера должны быть похожи на вашу целевую аудиторию, а не просто интересоваться похожей темой.</li>
+        <li>Качество комментариев — живые люди задают вопросы и обсуждают. Боты пишут «👍», «Огонь», «Согласен».</li>
+        <li>Как блогер делал рекламу раньше — попросите примеры. Если реклама органична и написана в его стиле — хороший знак.</li>
+        <li>Нет резких скачков подписчиков в статистике — признак накрутки. TGStat и LiveDune показывают динамику.</li>
+      </ul>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Важно про маркировку.</strong> Любая реклама должна быть оформлена в соответствии с законодательством РФ. При этом существуют форматы интеграций и упоминаний, которые по закону не требуют маркировки — и это отдельная тема со своими нюансами. Подробно разбираем в модуле 6.
+    </div>
+
+    <div class="card">
+      <div class="card-label">Шаблон письма блогеру</div>
+      <h3>Что написать автору, когда нашли подходящий канал</h3>
+      <p style="margin-bottom: 20px; color: var(--ink-2); font-size: 14px;">Короткое, конкретное, без воды. Покажите, что вы читали канал — это сразу выделяет вас среди массовых рассылок.</p>
+
+      <div style="background: var(--bg-soft); border: 1px dashed #C4C7CC; border-radius: var(--radius-md); padding: 20px 24px; font-size: 14px; line-height: 1.75; color: var(--ink);">
+        <p>Привет! Меня зовут [имя], я веду канал [название] — пишу о [тема в одном предложении].</p>
+        <p style="margin-top: 12px;">Слежу за вашим каналом, нравится [конкретная деталь — рубрика, тон, тема]. Мне кажется, наши аудитории пересекаются: у вас читают [кто], у меня — [кто].</p>
+        <p style="margin-top: 12px;">Хочу разместить у вас рекламу своего блога. Интересует [формат — пост / упоминание / интеграция], примерно [дата или период].</p>
+        <p style="margin-top: 12px;">Подскажите, актуально? Если да — пришлю подробности и спрошу про охваты и цену.</p>
+        <p style="margin-top: 12px;">[Имя]<br><span style="color: var(--ink-3);">[Ссылка на ваш канал]</span></p>
+      </div>
+
+      <div style="margin-top: 16px; display: grid; gap: 8px;">
+        <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-2);">
+          <span style="color: var(--accent-strong); font-weight: 700; flex-shrink: 0;">—</span>
+          <span>Не отправляйте шаблон как есть — заполните все скобки и подберите конкретную деталь про их канал.</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-2);">
+          <span style="color: var(--accent-strong); font-weight: 700; flex-shrink: 0;">—</span>
+          <span>Статистику и цену спрашивайте после того, как получите принципиальное согласие — не в первом сообщении.</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-2);">
+          <span style="color: var(--accent-strong); font-weight: 700; flex-shrink: 0;">—</span>
+          <span>Если используете биржу (Telega.in, uraslot.ru) — переписка не нужна, всё делается через платформу.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 03: БЮДЖЕТ -->
+  <section class="section" id="budget">
+    <div class="section-label">03 — Бюджет</div>
+    <h2 class="section-title"><span class="section-title-hl">Сколько нужно и на что</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Принцип</div>
+      <p>Первая задача любой рекламы — не «вырасти», а <span class="hl">найти рабочий формат</span>. На это уходит больше попыток, чем кажется. Закладывайте бюджет на тест, а не на результат.</p>
+    </div>
+
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="budget-range">500–1 000 ₽</div>
+        <div class="budget-label">Первый тест</div>
+        <div class="budget-desc">Одно упоминание у микроблогера или тест таргета на минимальном бюджете. Цель — понять, работает ли формат, считать цену подписчика.</div>
+        <span class="budget-tag">Только проверка</span>
+      </div>
+      <div class="budget-card">
+        <div class="budget-range">1 000–3 000 ₽</div>
+        <div class="budget-label">Первые выводы</div>
+        <div class="budget-desc">2–3 размещения у разных блогеров или несколько вариантов объявлений в таргете. Уже виден паттерн: что заходит, а что нет.</div>
+        <span class="budget-tag">Тест гипотез</span>
+      </div>
+      <div class="budget-card">
+        <div class="budget-range">3 000–5 000 ₽</div>
+        <div class="budget-label">Масштаб</div>
+        <div class="budget-desc">Когда уже знаете рабочий формат — усиливаете его. Больше размещений, больший охват. Цена подписчика должна снижаться.</div>
+        <span class="budget-tag">Рост</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Как считать эффективность</div>
+      <h3>Один показатель: цена подписчика</h3>
+      <p style="margin-bottom: 12px;">Потратили 1 000 ₽ — пришло 20 подписчиков. Цена подписчика — 50 ₽. Это ваш ориентир для следующего размещения.</p>
+      <p>Нормальной цены не существует — всё зависит от ниши. В узкоспециализированных темах 100–200 ₽ за подписчика может быть хорошим результатом. В массовых — 20–30 ₽. Важно сравнивать свои же размещения между собой и искать, что снижает цену.</p>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Важно.</strong> Не ждите, что одно размещение «выстрелит». Реклама — это всегда тест нескольких гипотез. Первые деньги — за обучение, не за результат.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 04: ВХОДЯЩИЕ ПРЕДЛОЖЕНИЯ -->
+  <section class="section section-alt" id="incoming">
+    <div class="section-label">04 — Входящие предложения</div>
+    <h2 class="section-title"><span class="section-title-hl">Вам пишут: «Размещу рекламу вашего блога»</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Контекст</div>
+      <p>Как только блог начинает расти, блогеры и администраторы каналов начинают писать сами — и предлагают разместить рекламу вашего блога у себя. Вы платите, они рекламируют вас своей аудитории. Разбираем, как оценить такое предложение, прежде чем переводить деньги.</p>
+    </div>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="card-label">Что проверить, прежде чем платить</div>
+      <div class="check-grid" style="margin-top: 4px;">
+        <div class="check-row">
+          <div class="check-icon look">🔍</div>
+          <div>
+            <div class="check-row-title">Посмотрите на их блог вживую — не на цифры</div>
+            <div class="check-row-desc">Откройте последние 5–10 постов. Сколько реальных комментариев? Есть ли живое обсуждение? Когда последняя публикация? Мёртвый блог с 10 000 подписчиков даст ноль переходов — и вы не вернёте деньги.</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-icon look">👥</div>
+          <div>
+            <div class="check-row-title">Совпадает ли их аудитория с вашей</div>
+            <div class="check-row-desc">О чём они пишут, кто их читает. Если у них про кулинарию, а вы про карьеру — даже живая и активная аудитория не конвертируется в ваших подписчиков. Деньги потрачены впустую.</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-icon warn">📊</div>
+          <div>
+            <div class="check-row-title">Попросите статистику — охват постов, не подписчиков</div>
+            <div class="check-row-desc">Важен охват последних 5–10 постов, а не общее число подписчиков. Нормально попросить скриншот из статистики — серьёзные блогеры дают без вопросов. Отказ или уклончивый ответ — тревожный знак. Для Telegram проверьте канал в TGStat: там видна динамика роста и можно заметить накрутку.</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-icon warn">⚠️</div>
+          <div>
+            <div class="check-row-title">Как написали вам</div>
+            <div class="check-row-desc">Массовая рассылка без упоминания вашего блога конкретно — они пишут всем подряд. Стоящие предложения приходят персонально: блогер объясняет, почему ваш блог подойдёт его аудитории. Если в сообщении нет ничего про вас — скорее всего, спам.</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <div class="check-icon look">💬</div>
+          <div>
+            <div class="check-row-title">Какой формат предлагают</div>
+            <div class="check-row-desc">Простое упоминание («подпишитесь на @...») конвертируется хуже, чем пост от первого лица, где блогер рассказывает о вас своими словами. Спросите, как они обычно делают рекламу — и попросите примеры прошлых размещений.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-body); font-weight: 700; font-size: 18px; margin-bottom: 16px;">Платить или нет — простая таблица</h3>
+
+    <div class="decision-grid">
+      <div class="decision-col yes">
+        <div class="decision-col-label">✓ Соглашайтесь, если</div>
+        <ul class="decision-list">
+          <li>Тема их блога близка к вашей или аудитория совпадает</li>
+          <li>Охваты реальные — подтверждены статистикой</li>
+          <li>Готовы написать о вас своими словами, а не вставить шаблон</li>
+          <li>Дают примеры прошлых рекламных постов</li>
+          <li>Цена за подписчика выходит адекватная для вашей ниши</li>
+          <li>Написали персонально, с пониманием вашего блога</li>
+        </ul>
+      </div>
+      <div class="decision-col no">
+        <div class="decision-col-label">✕ Отказывайтесь, если</div>
+        <ul class="decision-list">
+          <li>Не дают статистику охватов или уходят от ответа</li>
+          <li>Много подписчиков, но ноль живых комментариев</li>
+          <li>Резкие скачки роста в TGStat или LiveDune — признак накрутки</li>
+          <li>Аудитория совсем другой тематики</li>
+          <li>Давят на срочность: «Только до завтра, потом цена вырастет»</li>
+          <li>Сообщение явно массовое, без упоминания вашего блога</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Важно про накрутку.</strong> Большое число подписчиков ничего не значит без реальных охватов. Канал с 20 000 подписчиков и охватом 200 человек на пост — это 1%. Нормальный показатель для Telegram — от 15–20%, для ВКонтакте — от 5–10%. Ниже — стоит насторожиться.
+    </div>
+
+    <div class="callout-dark">
+      <h3>Первый тест — всегда маленький бюджет</h3>
+      <p>Даже если блогер кажется идеальным — начните с одного размещения на минимальной сумме. Посчитайте, сколько пришло подписчиков и какая вышла цена. Только потом решайте, повторять ли. Никакой анализ не заменяет реальный тест.</p>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 05: ЧЕК-ЛИСТ -->
+  <section class="section" id="checklist">
+    <div class="section-label">05 — Чек-лист</div>
+    <h2 class="section-title"><span class="section-title-hl">Готовность к первой закупке</span></h2>
+    <hr class="section-hr">
+
+    <p style="color: var(--ink-2); font-size: 15px; margin-bottom: 24px;">Отметьте то, что уже готово. Это ваш личный ориентир — не отчёт для куратора.</p>
+
+    <div class="checklist-progress">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="prog" style="width: 0%"></div>
+      </div>
+      <span class="progress-label" id="prog-label">0 / 8</span>
+    </div>
+
+    <ul class="checklist-items">
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">Профиль понятен с первого взгляда: аватар, название и описание говорят об одном.</span>
+      </li>
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">В блоге есть хотя бы 10–15 опубликованных постов.</span>
+      </li>
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">Я знаю, кому пишу — и могу описать свою аудиторию в двух предложениях.</span>
+      </li>
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">Я нашла 2–3 микроблогера в своей или смежной нише, у которых хочу разместить рекламу.</span>
+      </li>
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">Я знаю, сколько готова потратить на первый тест — и понимаю, что это деньги за обучение, а не за гарантированный результат.</span>
+      </li>
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">Я могу сформулировать, что должен сделать человек, пришедший с рекламы — подписаться, перейти по ссылке, написать в личку.</span>
+      </li>
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">Я знаю правила маркировки рекламы и готова соблюдать их при любом размещении.</span>
+      </li>
+      <li class="checklist-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <span class="check-text">Если пришло входящее предложение о рекламе — я проверю продукт, условия и право написать текст своими словами, прежде чем соглашаться.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- СЕКЦИЯ 06: ГЛОССАРИЙ -->
+  <section class="section section-alt" id="glossary">
+    <div class="section-label">06 — Глоссарий</div>
+    <h2 class="section-title"><span class="section-title-hl">Термины урока</span></h2>
+    <hr class="section-hr">
+
+    <div class="glossary">
+      <div class="glossary-item">
+        <div class="glossary-term">Таргетированная реклама</div>
+        <div class="glossary-def">Реклама, которая показывается выбранной аудитории по заданным параметрам: возраст, интересы, география, поведение. Запускается через рекламный кабинет платформы — например, VK Реклама.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Микроблогер</div>
+        <div class="glossary-def">Автор с аудиторией от 1 000 до 10 000–20 000 подписчиков. Как правило, имеет высокую вовлечённость и лояльную аудиторию. Реклама у микроблогеров дешевле, чем у крупных, и часто эффективнее.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Цена подписчика (CPF)</div>
+        <div class="glossary-def">Потраченный бюджет, делённый на число новых подписчиков. Главный показатель эффективности рекламы блога. Позволяет сравнивать разные размещения между собой.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Вовлечённость (ER)</div>
+        <div class="glossary-def">Engagement Rate — отношение реакций (лайки, комментарии, репосты) к числу подписчиков. Показывает, насколько живая аудитория у блогера. Важнее абсолютного числа подписчиков при выборе рекламы.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Маркетплейс / биржа рекламы</div>
+        <div class="glossary-def">Платформа, где можно найти блогеров для размещения рекламы и договориться об условиях. Для Telegram — Telega.in, TGStat. Для ВКонтакте — Маркет-платформа VK.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Маркировка рекламы</div>
+        <div class="glossary-def">Обязательное обозначение рекламного контента пометкой «Реклама» с указанием рекламодателя. Требование российского законодательства с 2023 года. Нарушение — административный штраф.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  function navTo(id) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    const el = document.getElementById(id);
+    if (el) { const y = el.getBoundingClientRect().top + window.scrollY - 64; window.scrollTo({ top: y, behavior: 'smooth' }); }
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    const list = document.querySelectorAll('.checklist-item');
+    const checked = document.querySelectorAll('.checklist-item.checked').length;
+    const total = list.length;
+    document.getElementById('prog').style.width = Math.round(checked/total*100) + '%';
+    document.getElementById('prog-label').textContent = checked + ' / ' + total;
+  }
+
+  // Авто-активация nav при скролле
+  const sections = ['ready','where','budget','incoming','checklist','glossary'];
+  const navBtns = document.querySelectorAll('.nav-btn');
+  window.addEventListener('scroll', () => {
+    let current = sections[0];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 120) current = id;
+    });
+    navBtns.forEach((btn, i) => btn.classList.toggle('active', i === sections.indexOf(current)));
+  });
+</script>
+
+</body>
+</html>
